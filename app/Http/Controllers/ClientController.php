@@ -5,26 +5,34 @@ namespace App\Http\Controllers;
 use App\Client;
 use http\Env\Response;
 use Illuminate\Http\Request;
-
+use DB;
 class ClientController extends Controller
 {
+
     public function get_client(){
         return response()->json(Client::all(),200);
     }
 
     public function get_client_byid($id){
 
-        $client=Client::find($id);
+        $client= DB::table('client')
+            ->join('users', 'users.id', '=', 'client.user_id')
+            ->where('client.user_id',$id)->first();
         if (is_null($client))
         {
-            return response()->json(['message'=>'client not found'],404);
+
+            return response()->json(['data'=>'client not found'],404);
         }
-        return response()->json(Client::find($id),200);
+
+
+        return response()->json($client,200);
     }
 
     public function update_client(Request $request,$id)
     {
-        $client=Client::find($id);
+        $client= DB::table('client')
+            ->join('users', 'users.id', '=', 'client.user_id')
+            ->where('client.user_id',$id)->first();
         if (is_null($client))
         {
             return response()->json(['message'=>'client not found'],404);

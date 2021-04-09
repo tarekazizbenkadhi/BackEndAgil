@@ -107,7 +107,13 @@ class AuthController extends Controller
         public
         function login(Request $request)
         {
-            $request->validate([
+            /*dd($request->email);
+            $users = DB::table('user')
+                ->where('email',$request->email)
+                ->select('')
+                ->get();*/
+
+           $request->validate([
                 'email' => 'required|string|email',
                 'password' => 'required|string',
                 'remember_me' => 'boolean'
@@ -124,6 +130,7 @@ class AuthController extends Controller
                 $token->expires_at = Carbon::now()->addWeeks(1);
             $token->save();
             return response()->json([
+                'id_user'=>Auth::id(),
                 'access_token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
                 'expires_at' => Carbon::parse(
