@@ -34,4 +34,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('client','ClientController@get_client');
 Route::get('client/{id}','ClientController@get_client_byid');
 Route::put('update_client/{id}','ClientController@update_client');
+Route::get('entreprise','EntrepriseController@get_entreprise');
+Route::get('entreprise/{id}','ClientController@get_entreprise_byid');
+Route::put('update_entreprise/{id}','ClientController@update_entreprise');
 
