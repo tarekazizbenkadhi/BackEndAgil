@@ -43,11 +43,26 @@ class User extends Authenticatable
 
     public function client()
     {
-        return $this->hasOne(Client::class); //user belongs to client
+        return $this->hasOne(Client::class);
     }
 
     public function entreprise()
     {
-        return $this->hasOne(Entreprise::class); //user belongs to client
+        return $this->hasOne(Entreprise::class);
+    }
+
+    public function admin_livraison()
+    {
+        return $this->hasOne(AdminLivraison::class);
+    }
+
+    public function admin_commercial()
+    {
+        return $this->hasOne(AdminCommercial::class);
+    }
+
+    public function super_admin()
+    {
+        return $this->hasOne(SuperAdmin::class);
     }
 }
