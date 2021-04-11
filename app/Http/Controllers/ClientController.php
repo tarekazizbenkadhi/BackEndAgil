@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
-use http\Env\Response;
+
 use Illuminate\Http\Request;
 use DB;
 
