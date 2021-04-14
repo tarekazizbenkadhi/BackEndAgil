@@ -17,7 +17,6 @@ class EntrepriseController extends Controller
 
     public function get_entreprise_byid($id)
     {
-
         $entreprise = DB::table('entreprise')
             ->join('users', 'users.id', '=', 'entreprise.user_id')
             ->where('entreprise.user_id', $id)->first();
@@ -25,8 +24,6 @@ class EntrepriseController extends Controller
 
             return response()->json(['data' => 'client not found'], 404);
         }
-
-
         return response()->json($entreprise, 200);
     }
 

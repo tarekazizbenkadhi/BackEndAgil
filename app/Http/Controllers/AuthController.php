@@ -71,7 +71,7 @@ class AuthController extends Controller
 
             ]);
         }
-        else if ($request->type === 'entreprise'){
+        elseif ($request->type === 'entreprise'){
                 $user->entreprise()->create([
                     'user_id' => $request->user(),
                     'raison_sociale' => $request->raison_sociale,
@@ -85,7 +85,7 @@ class AuthController extends Controller
                     'prevision' => $request->prevision,
                 ]);
             }
-        else if ($request->type === 'admin_commerical'){
+        elseif ($request->type === 'admin_commercial'){
             $user->admin_commercial()->create([
                 'user_id' => $request->user(),
                 'prenom' => $request->prenom,
@@ -93,7 +93,7 @@ class AuthController extends Controller
                 'poste' => $request->poste,
             ]);
         }
-        else if ($request->type === 'admin_livraison')
+        elseif ($request->type === 'admin_livraison')
         {
             $user->admin_livraison()->create([
                 'user_id' => $request->user(),
@@ -184,6 +184,6 @@ class AuthController extends Controller
         public
         function user(Request $request)
         {
-            return response()->json($request->user()->with('client','entreprise','admin_commerical','admin_livraison','super_admin')->find(Auth::id()));
+            return response()->json($request->user()->with('client','entreprise','admin_commercial','admin_livraison','super_admin')->find(Auth::id()));
         }
     }

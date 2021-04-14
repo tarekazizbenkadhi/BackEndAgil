@@ -13,13 +13,17 @@ class CreateAdminCommercialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin_commercials', function (Blueprint $table) {
+        Schema::create('admin_commercial', function (Blueprint $table) {
             $table->id();
             $table->string('prenom');
             $table->string('nom');
             $table->string('poste');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
+
+
     }
 
     /**
@@ -29,6 +33,6 @@ class CreateAdminCommercialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_commercials');
+        Schema::dropIfExists('admin_commercial');
     }
 }

@@ -9,7 +9,7 @@ class AdminLivraison extends Controller
 {
     public function get_admin_livraisons()
     {
-        $admin_livraisons = DB::table('admin_livraisons as a')
+        $admin_livraisons = DB::table('admin_livraison as a')
             ->join('users', 'users.id', '=', 'a.user_id')
             ->select('a.*','users.*')->get();
         return response()->json($admin_livraisons, 200);
@@ -18,12 +18,12 @@ class AdminLivraison extends Controller
     public function get_admin_livraisons_byid($id)
     {
 
-        $admin_livraisons = DB::table('admin_livraisons as a')
+        $admin_livraisons = DB::table('admin_livraison as a')
             ->join('users', 'users.id', '=', 'a.user_id')
             ->where('a.user_id', $id)->first();
         if (is_null($admin_livraisons)) {
 
-            return response()->json(['data' => 'admin_livraisons not found'], 404);
+            return response()->json(['data' => 'admin_livraison not found'], 404);
         }
 
 
@@ -32,13 +32,13 @@ class AdminLivraison extends Controller
 
     public function update_admin_livraisons(Request $request, $id)
     {
-        $admin_livraisons = DB::table('admin_livraisons as a')
+        $admin_livraisons = DB::table('admin_livraison as a')
             ->join('users', 'users.id', '=', 'a.user_id')
             ->where('a.user_id', $id)->first();
 
         $admin_livraisons = $request->all();
         if (is_null($admin_livraisons)) {
-            return response()->json(['message' => 'admin_livraisons not found'], 404);
+            return response()->json(['message' => 'admin_livraison not found'], 404);
         }
         //**********************************
         $tableupdate = [];
@@ -46,7 +46,7 @@ class AdminLivraison extends Controller
         if (!empty($request->prenom)) {$tableupdate['prenom'] = $request->prenom;}
         if(!empty($request->poste)){ $tableupdate['poste'] = $request->poste;}
 
-        DB::table('admin_livraisons')
+        DB::table('admin_livraison')
             ->where('user_id', $id)
             ->update($tableupdate);
         //if mta3 champs users
