@@ -38,7 +38,7 @@ class SuperAdmin extends Controller
 
         $super_admins = $request->all();
         if (is_null($super_admins)) {
-            return response()->json(['message' => 'super_admins not found'], 404);
+            return response()->json(['message' => 'super_admin not found'], 404);
         }
         //**********************************
         $tableupdate = [];

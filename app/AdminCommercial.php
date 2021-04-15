@@ -12,7 +12,6 @@ class AdminCommercial extends Model
         'nom',
         'poste',
         'user_id',
-
     ];
 
     public function user()
