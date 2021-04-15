@@ -51,15 +51,12 @@ class AuthController extends Controller
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'
         ]);
-
-
         $user = new User([
             'tel' => $request->tel,
             'fax' => $request->fax,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-
         $user->save();
         if ($request->hasFile('image_cin')) {
 //            $completeFileName = $request->file('image_cin')->getClientOriginalName();
@@ -107,7 +104,6 @@ class AuthController extends Controller
         }
 
         if ($request->type === 'client') {
-
             $user->client()->create([ //user de type client yzid les champs hedhom
                 'user_id' => $request->user(),
                 'prenom' => $request->prenom,
@@ -121,9 +117,7 @@ class AuthController extends Controller
                 'fax' => $request->fax,
 
                 'image_cin' => $request->image_cin,
-
             ]);
-
         } elseif ($request->type === 'entreprise') {
             $user->entreprise()->create([
                 'user_id' => $request->user(),
@@ -138,18 +132,17 @@ class AuthController extends Controller
                 'prevision' => $request->prevision,
                 'mat_fiscal' => $request->mat_fiscal,
                 'num_registre_commerce' => $request->num_registre_commerce,
-
             ]);
         } elseif ($request->type === 'admin_commercial') {
+
             $user->admin_commercial()->create([
                 'user_id' => $request->user(),
                 'prenom' => $request->prenom,
                 'nom' => $request->nom,
                 'poste' => $request->poste,
             ]);
-
-
         } elseif ($request->type === 'admin_livraison') {
+
             $user->admin_livraison()->create([
                 'user_id' => $request->user(),
                 'prenom' => $request->prenom,
@@ -164,14 +157,10 @@ class AuthController extends Controller
                 'poste' => $request->poste,
             ]);
         }
-
-        dd($request->mat_fiscal);
-
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
     }
-
     /**
      * Login user and create token
      *
@@ -216,7 +205,6 @@ class AuthController extends Controller
             )->toDateTimeString()
         ]);
     }
-
     /**
      * Logout user (Revoke the token)
      *
@@ -230,7 +218,6 @@ class AuthController extends Controller
             'message' => 'Successfully logged out'
         ]);
     }
-
     /**
      * Get the authenticated User
      *
