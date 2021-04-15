@@ -8,7 +8,7 @@ class AdminComercial extends Controller
 {
     public function get_admin_commercials()
     {
-        $admin_commercials = DB::table('admin_commercials as a')
+        $admin_commercials = DB::table('admin_commercial as a')
             ->join('users', 'users.id', '=', 'a.user_id')
             ->select('a.*','users.*')->get();
         return response()->json($admin_commercials, 200);
@@ -17,12 +17,12 @@ class AdminComercial extends Controller
     public function get_admin_commercials_byid($id)
     {
 
-        $admin_commercials = DB::table('admin_commercials as a')
+        $admin_commercials = DB::table('admin_commercial as a')
             ->join('users', 'users.id', '=', 'a.user_id')
             ->where('a.user_id', $id)->first();
         if (is_null($admin_commercials)) {
 
-            return response()->json(['data' => 'admin_commercials not found'], 404);
+            return response()->json(['data' => 'admin_commercial not found'], 404);
         }
 
 
@@ -31,13 +31,13 @@ class AdminComercial extends Controller
 
     public function update_admin_commercials(Request $request, $id)
     {
-        $admin_commercials = DB::table('admin_commercials as a')
-            ->join('users', 'users.id', '=', 'a.user_id')
-            ->where('a.user_id', $id)->first();
+        $admin_commercials = DB::table('admin_commercial')
+            ->join('users', 'users.id', '=', 'admin_commercial.user_id')
+            ->where('admin_commercial.user_id', $id)->first();
 
         $admin_commercials = $request->all();
         if (is_null($admin_commercials)) {
-            return response()->json(['message' => 'admin_commercials not found'], 404);
+            return response()->json(['message' => 'admin_commercial not found'], 404);
         }
         //**********************************
         $tableupdate = [];
@@ -45,7 +45,7 @@ class AdminComercial extends Controller
         if (!empty($request->prenom)) {$tableupdate['prenom'] = $request->prenom;}
         if(!empty($request->poste)){ $tableupdate['poste'] = $request->poste;}
 
-        DB::table('admin_commercials')
+        DB::table('admin_commercial')
             ->where('user_id', $id)
             ->update($tableupdate);
         //if mta3 champs users

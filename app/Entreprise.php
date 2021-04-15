@@ -17,6 +17,8 @@ class Entreprise extends Model
         'siege',
         'rib',
         'prevision',
+        'num_registre_commerce',
+        'mat_fiscal',
         'user_id',
     ];
 

@@ -16,6 +16,7 @@ class Client extends Model
         'adresse',
         'code_postal',
         'ville',
+        'image_cin',
         'user_id',
     ];
 

@@ -13,11 +13,14 @@ class CreateSuperAdminsTable extends Migration
      */
     public function up()
     {
-        Schema::create('super_admins', function (Blueprint $table) {
+        Schema::create('super_admin', function (Blueprint $table) {
             $table->id();
             $table->string('prenom');
             $table->string('nom');
             $table->string('poste');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateSuperAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('super_admins');
+        Schema::dropIfExists('super_admin');
     }
 }
