@@ -63,5 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(SuperAdmin::class);
     }
+    public function carte_agilis(){
+        $this->hasMany(carte_agilis::class);
+
+    }
 
 }
