@@ -51,4 +51,9 @@ Route::put('update_admin_livraison/{id}', 'AdminLivraison@update_admin_livraison
 Route::get('super_admin', 'SuperAdmin@get_super_admins');
 Route::get('super_admin/{id}', 'SuperAdmin@get_super_admins_byid');
 Route::put('update_super_admin/{id}', 'SuperAdmin@update_super_admins');
+//url carte agilis
+Route::post('addCarte/{id}', 'carteController@addCarte');
+Route::get('getCarte', 'carteController@get_carte');
+Route::get('getCarte/{id}', 'carteController@get_carte_byid');
+Route::put('updateCarte/{id}', 'carteController@update_carte');
 
