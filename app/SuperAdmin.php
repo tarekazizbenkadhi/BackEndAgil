@@ -12,6 +12,7 @@ class SuperAdmin extends Model
         'nom',
         'poste',
         'user_id',
+        'valide',
     ];
 
     public function user()

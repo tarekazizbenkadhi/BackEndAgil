@@ -8,11 +8,19 @@ use DB;
 
 class ClientController extends Controller
 {
-
-    public function get_client()
+    public function get_valide_client() //valide
     {
         $client = DB::table('client as c')
             ->join('users', 'users.id', '=', 'c.user_id')
+            ->where('c.valide','=','1')
+            ->select('c.*','users.*')->get();
+        return response()->json($client, 200);
+    }
+    public function get_client() //mesh valide
+    {
+        $client = DB::table('client as c')
+            ->join('users', 'users.id', '=', 'c.user_id')
+            ->where('c.valide','=','false')
             ->select('c.*','users.*')->get();
              return response()->json($client, 200);
     }
@@ -52,6 +60,7 @@ class ClientController extends Controller
         if(!empty($request->adresse)){ $tableupdate['adresse'] = $request->adresse;}
         if(!empty($request->code_postal)){ $tableupdate['code_postal'] = $request->code_postal;}
         if(!empty($request->ville)){ $tableupdate['ville'] = $request->ville;}
+        if(!empty($request->valide)){ $tableupdate['valide'] = $request->valide;}
         DB::table('client')
             ->where('user_id', $id)
             ->update($tableupdate);

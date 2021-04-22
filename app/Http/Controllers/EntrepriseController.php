@@ -7,10 +7,20 @@ use Illuminate\Support\Facades\DB;
 
 class EntrepriseController extends Controller
 {
+    public function get_valide_entreprise() //valide
+    {
+        $entreprise = DB::table('entreprise as e')
+            ->join('users', 'users.id', '=', 'e.user_id')
+            ->where('e.valide', '=', '1')
+            ->select('e.*', 'users.*')->get();
+        return response()->json($entreprise, 200);
+    }
+
     public function get_entreprise()
     {
         $entreprise = DB::table('entreprise as e')
             ->join('users', 'users.id', '=', 'e.user_id')
+            ->where('e.valide', '=', 'false')
             ->select('e.*', 'users.*')->get();
         return response()->json($entreprise, 200);
     }
@@ -66,6 +76,7 @@ class EntrepriseController extends Controller
         if (!empty($request->prevision)) {
             $tableupdate['prevision'] = $request->prevision;
         }
+        if(!empty($request->valide)){ $tableupdate['valide'] = $request->valide;}
         DB::table('entreprise')
             ->where('user_id', $id)
             ->update($tableupdate);

@@ -12,6 +12,7 @@ class AdminLivraison extends Model
         'nom',
         'poste',
         'user_id',
+        'valide',
     ];
 
     public function user()

@@ -26,6 +26,7 @@ class CreateEntreprisesTable extends Migration
             $table->string('num_registre_commerce');
             $table->string('mat_fiscal');
             $table->string('prevision');
+            $table->boolean('valide');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->rememberToken();
