@@ -20,6 +20,7 @@ class Entreprise extends Model
         'num_registre_commerce',
         'mat_fiscal',
         'user_id',
+        'valide',
     ];
 
     public function user()
