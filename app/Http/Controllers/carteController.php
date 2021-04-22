@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class carteController extends Controller
 {
     //
-    public function addCarte(Request $request ,$id)
+    public function addCarte($id)
     {
 
        // dd($id);
