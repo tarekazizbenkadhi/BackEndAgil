@@ -23,6 +23,7 @@ class Client extends Migration
             $table->string('adresse');
             $table->string('code_postal');
             $table->string('ville');
+            $table->boolean('valide');
             $table->string('image_cin');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');

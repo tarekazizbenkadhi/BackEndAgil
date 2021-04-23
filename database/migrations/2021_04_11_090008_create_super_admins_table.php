@@ -18,6 +18,7 @@ class CreateSuperAdminsTable extends Migration
             $table->string('prenom');
             $table->string('nom');
             $table->string('poste');
+            $table->boolean('valide');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->rememberToken();

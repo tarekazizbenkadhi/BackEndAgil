@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Hash;
+
 
 
 class AuthController extends Controller
@@ -48,6 +51,7 @@ class AuthController extends Controller
             'poste' => 'nullable|string',
             'type' => 'required|string',
             'tel' => 'required|string',
+            'valide' => 'nullable',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'
         ]);
@@ -59,51 +63,20 @@ class AuthController extends Controller
         ]);
         $user->save();
         if ($request->hasFile('image_cin')) {
-//            $completeFileName = $request->file('image_cin')->getClientOriginalName();
-//
-//            $fileNameOnly = pathinfo($completeFileName, PATHINFO_FILENAME);
-//
-//            $extension = $request->file('image_cin')->getClientOriginalExtension();
-//
-//            $comPic = str_replace(' ', '_', $fileNameOnly) . '-' . rand() . '_' . time() . '.' . $extension;
-//
-//            $path = $request->file('image_cin')->storeAs('public/images', $comPic);
-//
-//            $request->image_cin = "public/images/" . $comPic;
             $request->image_cin = Storage::url(Storage::put('public/images', $request->image_cin));
         }
         if ($request->hasFile('num_registre_commerce')) {
-//            $completeFileName = $request->file('num_registre_commerce')->getClientOriginalName();
-//
-//            $fileNameOnly = pathinfo($completeFileName, PATHINFO_FILENAME);
-//
-//            $extension = $request->file('num_registre_commerce')->getClientOriginalExtension();
-//
-//            $comPic = str_replace(' ', '_', $fileNameOnly) . '-' . rand() . '_' . time() . '.' . $extension;
-//
-//            $path = $request->file('num_registre_commerce')->storeAs('public/images', $comPic);
-//
-//            $request->num_registre_commerce = "public/images/" . $comPic;
             $request->num_registre_commerce = Storage::url(Storage::put('public/images', $request->num_registre_commerce));
 
         }
         if ($request->hasFile('mat_fiscal')) {
-//            $completeFileName = $request->file('mat_fiscal')->getClientOriginalName();
-//
-//            $fileNameOnly = pathinfo($completeFileName, PATHINFO_FILENAME);
-//
-//            $extension = $request->file('mat_fiscal')->getClientOriginalExtension();
-//
-//            $comPic = str_replace(' ', '_', $fileNameOnly) . '-' . rand() . '_' . time() . '.' . $extension;
-//
-//            $path = $request->file('mat_fiscal')->storeAs('public/images', $comPic);
-//
-//            $request->mat_fiscal = $path.$comPic;
             $request->mat_fiscal = Storage::url(Storage::put('public/images', $request->mat_fiscal));
 
         }
 
         if ($request->type === 'client') {
+            $request->valide = $request->valide != '0';
+
             $user->client()->create([ //user de type client yzid les champs hedhom
                 'user_id' => $request->user(),
                 'prenom' => $request->prenom,
@@ -115,10 +88,14 @@ class AuthController extends Controller
                 'code_postal' => $request->code_postal,
                 'ville' => $request->ville,
                 'fax' => $request->fax,
-
+                'valide' => $request->valide,
                 'image_cin' => $request->image_cin,
+
             ]);
+
         } elseif ($request->type === 'entreprise') {
+            $request->valide = $request->valide != '0';
+
             $user->entreprise()->create([
                 'user_id' => $request->user(),
                 'raison_sociale' => $request->raison_sociale,
@@ -131,36 +108,46 @@ class AuthController extends Controller
                 'rib' => $request->rib,
                 'prevision' => $request->prevision,
                 'mat_fiscal' => $request->mat_fiscal,
+                'valide' => $request->valide,
                 'num_registre_commerce' => $request->num_registre_commerce,
             ]);
         } elseif ($request->type === 'admin_commercial') {
+           $request->valide = $request->valide != '1';
 
             $user->admin_commercial()->create([
                 'user_id' => $request->user(),
                 'prenom' => $request->prenom,
                 'nom' => $request->nom,
                 'poste' => $request->poste,
+                'valide'=> $request->valide,
+
             ]);
         } elseif ($request->type === 'admin_livraison') {
+            $request->valide = $request->valide != '1';
 
             $user->admin_livraison()->create([
                 'user_id' => $request->user(),
                 'prenom' => $request->prenom,
                 'nom' => $request->nom,
                 'poste' => $request->poste,
+                'valide'=> $request->valide,
             ]);
         } else {
+            $request->valide = $request->valide != '1';
             $user->super_admin()->create([
                 'user_id' => $request->user(),
                 'prenom' => $request->prenom,
                 'nom' => $request->nom,
                 'poste' => $request->poste,
+                'valide'=> $request->valide,
+
             ]);
         }
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
     }
+
     /**
      * Login user and create token
      *
@@ -174,11 +161,6 @@ class AuthController extends Controller
     public
     function login(Request $request)
     {
-        // dd($request->email);
-        /*$users = DB::table('user')
-            ->where('email',$request->email)
-            ->select('')
-            ->get();*/
 
         $request->validate([
             'email' => 'required|string|email',
@@ -186,10 +168,63 @@ class AuthController extends Controller
             'remember_me' => 'boolean'
         ]);
         $credentials = request(['email', 'password']);
+        $client = DB::table('users')
+            ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->select('client.valide')
+            ->where('users.email', $request->email)
+            ->first();
+        $super = DB::table('users')
+            ->leftJoin('super_admin', 'super_admin.user_id', '=', 'users.id')
+            ->select('super_admin.valide')
+            ->where('users.email', $request->email)
+            ->first();
+        $entreprise = DB::table('users')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->select('entreprise.valide')
+            ->where('users.email', $request->email)
+            ->first();
+        $liv = DB::table('users')
+        ->leftJoin('admin_livraison', 'admin_livraison.user_id', '=', 'users.id')
+            ->select('admin_livraison.valide')
+            ->where('users.email', $request->email)
+            ->first();
+        $com = DB::table('users')
+            ->leftJoin('admin_commercial', 'admin_commercial.user_id', '=', 'users.id')
+            ->select('admin_commercial.valide')
+            ->where('users.email', $request->email)
+            ->first();
+          //  ->select('client.valide','super_admin.valide')
+
+
+  //dd($client);
+
         if (!Auth::attempt($credentials))
+        {
             return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);
+            ], 401);}
+        if ( $super->valide === 0){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);}
+       //dd( gettype( $com->valide );
+       if ( $com->valide === 0){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);}
+       // dd($com->valide);
+        if ($liv->valide === 0){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);}
+        if ($client->valide === 0){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);}
+        if ( $entreprise->valide === 0){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);}
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
@@ -205,6 +240,7 @@ class AuthController extends Controller
             )->toDateTimeString()
         ]);
     }
+
     /**
      * Logout user (Revoke the token)
      *
@@ -218,6 +254,7 @@ class AuthController extends Controller
             'message' => 'Successfully logged out'
         ]);
     }
+
     /**
      * Get the authenticated User
      *

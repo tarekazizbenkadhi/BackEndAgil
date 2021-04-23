@@ -35,10 +35,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('client', 'ClientController@get_client');
 Route::get('client/{id}', 'ClientController@get_client_byid');
 Route::put('update_client/{id}', 'ClientController@update_client');
+Route::get('valideClient','ClientController@get_valide_client');
 //url entreprises
 Route::get('entreprise', 'EntrepriseController@get_entreprise');
 Route::get('entreprise/{id}', 'EntrepriseController@get_entreprise_byid');
 Route::put('update_entreprise/{id}', 'EntrepriseController@update_entreprise');
+Route::get('valideEntreprise','EntrepriseController@get_valide_entreprise');
 //url admin commercial
 Route::get('admin_commercial', 'AdminComercial@get_admin_commercials');
 Route::get('admin_commercial/{id}', 'AdminComercial@get_admin_commercials_byid');
@@ -57,3 +59,5 @@ Route::get('getCarte', 'carteController@get_carte');
 Route::get('getCarte/{id}', 'carteController@get_carte_byid');
 Route::put('updateCarte/{id}', 'carteController@update_carte');
 
+// emails
+Route::get('email','MailController@sendEmail');

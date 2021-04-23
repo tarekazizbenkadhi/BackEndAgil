@@ -18,6 +18,7 @@ class Client extends Model
         'ville',
         'image_cin',
         'user_id',
+        'valide',
     ];
 
     public function user()
