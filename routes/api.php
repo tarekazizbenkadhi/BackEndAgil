@@ -59,3 +59,5 @@ Route::get('getCarte', 'carteController@get_carte');
 Route::get('getCarte/{id}', 'carteController@get_carte_byid');
 Route::put('updateCarte/{id}', 'carteController@update_carte');
 
+// emails
+Route::get('email','MailController@sendEmail');

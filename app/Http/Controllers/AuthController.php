@@ -168,22 +168,63 @@ class AuthController extends Controller
             'remember_me' => 'boolean'
         ]);
         $credentials = request(['email', 'password']);
-        $user = DB::table('users')
+        $client = DB::table('users')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
-            ->leftJoin('super_admin', 'super_admin.user_id', '=', 'users.id')
-//            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
-//            ->leftJoin('admin_livraison', 'admin_livraison.user_id', '=', 'users.id')
-//            ->leftJoin('admin_commercial', 'admin_commercial.user_id', '=', 'users.id')
-//            ->select('client.valide','super_admin.valide','entreprise.valide','admin_livraison.valide','admin_commercial.valide')
-            ->select('client.valide','super_admin.valide')
+            ->select('client.valide')
             ->where('users.email', $request->email)
             ->first();
+        $super = DB::table('users')
+            ->leftJoin('super_admin', 'super_admin.user_id', '=', 'users.id')
+            ->select('super_admin.valide')
+            ->where('users.email', $request->email)
+            ->first();
+        $entreprise = DB::table('users')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->select('entreprise.valide')
+            ->where('users.email', $request->email)
+            ->first();
+        $liv = DB::table('users')
+        ->leftJoin('admin_livraison', 'admin_livraison.user_id', '=', 'users.id')
+            ->select('admin_livraison.valide')
+            ->where('users.email', $request->email)
+            ->first();
+        $com = DB::table('users')
+            ->leftJoin('admin_commercial', 'admin_commercial.user_id', '=', 'users.id')
+            ->select('admin_commercial.valide')
+            ->where('users.email', $request->email)
+            ->first();
+          //  ->select('client.valide','super_admin.valide')
 
-//       dd($user->valide);
-        if (!Auth::attempt($credentials) || $user->valide == 0)
+
+  //dd($client);
+
+        if (!Auth::attempt($credentials))
+        {
             return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);
+            ], 401);}
+        if ( $super->valide === 0){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);}
+       //dd( gettype( $com->valide );
+       if ( $com->valide === 0){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);}
+       // dd($com->valide);
+        if ($liv->valide === 0){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);}
+        if ($client->valide === 0){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);}
+        if ( $entreprise->valide === 0){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);}
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
