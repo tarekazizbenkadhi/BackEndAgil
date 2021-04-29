@@ -61,3 +61,10 @@ Route::put('updateCarte/{id}', 'carteController@update_carte');
 
 // emails
 Route::get('email','MailController@sendEmail');
+// stock
+Route::post('stock','StockController@createStock');
+Route::put('addStock','StockController@AddStock');
+Route::put('subStock','StockController@SubStock');
+
+// CB
+Route::post('createCard','CBContoller@addCarte');
