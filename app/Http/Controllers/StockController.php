@@ -53,4 +53,10 @@ class StockController extends Controller
             ->decrement('cinquante', $request->cinquante);
         return response(201);
     }
+    public function getStock()
+    {
+        $stock = DB::table('stocks')
+            ->where('id', 1)->first();
+        return response()->json($stock, 200);
+    }
 }
