@@ -65,6 +65,7 @@ Route::get('email','MailController@sendEmail');
 Route::post('stock','StockController@createStock');
 Route::put('addStock','StockController@AddStock');
 Route::put('subStock','StockController@SubStock');
+Route::get('getStock','StockController@getStock');
 
 // CB
 Route::post('createCard','CBContoller@addCarte');
