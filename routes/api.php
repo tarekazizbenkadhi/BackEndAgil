@@ -69,3 +69,4 @@ Route::get('getStock','StockController@getStock');
 
 // CB
 Route::post('createCard','CBContoller@addCarte');
+Route::get('getCBbynum/{numero}','CBContoller@getCBbynum');

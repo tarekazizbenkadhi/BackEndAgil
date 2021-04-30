@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CarteBancaire;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CBContoller extends Controller
 {
@@ -23,5 +24,19 @@ class CBContoller extends Controller
         ], 201);
 
 
+    }
+    public function getCBbynum($num)
+    {
+
+        $carte = DB::table('carte_bancaires')
+
+            ->where('carte_bancaires.numero', $num)->first();
+        if (is_null($carte)) {
+
+            return response()->json(['data' => 'carte not found'], 404);
+        }
+
+
+        return response()->json($carte, 200);
     }
 }
