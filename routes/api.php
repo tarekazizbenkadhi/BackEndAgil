@@ -56,8 +56,29 @@ Route::put('update_super_admin/{id}', 'SuperAdmin@update_super_admins');
 //url carte agilis
 Route::post('addCarte/{id}', 'carteController@addCarte');
 Route::get('getCarte', 'carteController@get_carte');
-Route::get('getCarte/{id}', 'carteController@get_carte_byid');
+Route::get('getCarteClient/{id}', 'carteController@get_carte_client_byid');
+Route::get('getCarteEntrprise/{id}', 'carteController@get_carte_entreprise_byid');
+
 Route::put('updateCarte/{id}', 'carteController@update_carte');
 
 // emails
 Route::get('email','MailController@sendEmail');
+// stock
+Route::post('stock','StockController@createStock');
+Route::put('addStock','StockController@AddStock');
+Route::put('subStock','StockController@SubStock');
+Route::get('getStock','StockController@getStock');
+
+// CB
+Route::post('createCard','CBContoller@addCarte');
+Route::get('getCBbynum/{numero}','CBContoller@getCBbynum');
+//vehicule
+Route::post('addVehicule/{id}', 'vehiculeController@addVehicule');
+Route::get('getVehiculeClient/{id}', 'vehiculeController@get_vehicule_client_byid');
+//commande bon valeur
+Route::post('addCommandeBonValeur/{id}', 'CommandeBonValeurController@addCommandeBonValeur');
+Route::get('get_commande_client_byid/{id}', 'CommandeBonValeurController@get_commande_client_byid');
+Route::get('get_commande_entreprise_byid/{id}', 'CommandeBonValeurController@get_commande_entreprise_byid');
+Route::put('update_commande/{id}', 'CommandeBonValeurController@update_commande');
+
+
