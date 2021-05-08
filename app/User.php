@@ -67,5 +67,13 @@ class User extends Authenticatable
         $this->hasMany(carte_agilis::class);
 
     }
+    public function vehicule(){
+        $this->hasMany(vehicule::class);
+
+    }
+    public function commandeBonValeur(){
+        $this->hasMany(commandeBonValeur::class);
+
+    }
 
 }

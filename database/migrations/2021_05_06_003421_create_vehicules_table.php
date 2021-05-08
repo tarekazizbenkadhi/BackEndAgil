@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarteAgilisTable extends Migration
+class CreateVehiculesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateCarteAgilisTable extends Migration
      */
     public function up()
     {
-        Schema::create('carte_agilis', function (Blueprint $table) {
+        Schema::create('vehicules', function (Blueprint $table) {
             $table->id();
-            $table->boolean('mere_ss');
-            $table->boolean('mere_g');
-            $table->boolean('mere_g50');
+            $table->string('immatriculation')->unique();
             $table->bigInteger('user_id')->unsigned();
-            $table->integer('nb_carte_ss');
-            $table->integer('nb_carte_g');
-            $table->boolean('valide');
-            $table->integer('nb_carte_g50');
+            $table->string('marque');
             $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }
@@ -35,6 +31,6 @@ class CreateCarteAgilisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carte_agilis');
+        Schema::dropIfExists('vehicules');
     }
 }

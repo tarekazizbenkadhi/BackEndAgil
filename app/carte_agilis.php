@@ -7,14 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class carte_agilis extends Model
 {
     protected $fillable = [
-       'num_carte',
+       'mere_ss',
         'user_id',
-        'solde',
-        'date_exp',
-        'code_secret',
+        'mere_g',
+        'mere_g50',
+        'nb_carte_ss',
+        'nb_carte_g',
+        'nb_carte_g50',
+        'valide',
+
+
     ];
     public function user()
     {
         return $this->hasOne(User::class);
     }
+
 }
