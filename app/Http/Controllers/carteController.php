@@ -40,9 +40,9 @@ class carteController extends Controller
     public function get_carte()
     {
               $carte=DB::table('carte_agilis as c')
-                  ->leftJoin('users', 'users.id', '=', 'c.user_id')
-                ->leftJoin('client', 'client.user_id', '=', 'users.id')
-              ->select ('users.*','client.*','c.*')->get();
+                  ->join('users', 'users.id', '=', 'c.user_id')
+                  ->where('c.valide','=','false')
+                  ->select('c.*','users.*')->get();
         return response()->json($carte, 200);
     }
 
