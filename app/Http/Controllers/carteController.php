@@ -12,16 +12,20 @@ use Illuminate\Support\Facades\DB;
 class carteController extends Controller
 {
     //
-    public function addCarte($id)
+    public function addCarte(Request $request , $id)
     {
 
        // dd($id);
+
         $carte = new carte_agilis([
-            'num_carte' => '1512'.rand().'0210',
-            'solde' => '0',
-            'date_exp' => date('Y-m-d',strtotime(date("Y-m-d", time()) . " + 730 day")),
-            'code_secret' => rand(pow(10, 4-1), pow(10, 4)-1),
-            'user_id' =>$id,
+            'mere_ss' => $request->mere_ss,
+            'mere_g' => $request->mere_g,
+            'mere_g50' => $request->mere_g50,
+            'nb_carte_ss' =>$request->nb_carte_ss,
+            'nb_carte_g' =>$request->nb_carte_g,
+            'valide' => 0,
+            'nb_carte_g50' =>$request->nb_carte_g50,
+            'user_id'=>$id,
         ]);
 
 
@@ -42,7 +46,7 @@ class carteController extends Controller
         return response()->json($carte, 200);
     }
 
-    public function get_carte_byid($id)
+    public function get_carte_client_byid($id)
     {
 
         $carte = DB::table('carte_agilis as c')
@@ -50,7 +54,24 @@ class carteController extends Controller
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
             ->where('c.user_id', $id)
             ->select ('users.*','client.*','c.*')
-            ->get();
+            ->first();
+        if (is_null($carte)) {
+
+            return response()->json(['data' => 'carte not found'], 404);
+        }
+
+
+        return response()->json($carte, 200);
+    }
+    public function get_carte_entreprise_byid($id)
+    {
+
+        $carte = DB::table('carte_agilis as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->where('c.user_id', $id)
+            ->select ('users.*','entreprise.*','c.*')
+            ->first();
         if (is_null($carte)) {
 
             return response()->json(['data' => 'carte not found'], 404);
@@ -63,10 +84,11 @@ class carteController extends Controller
     {
         /*$carte = DB::table('carte_agilis')
             ->where('id',$id)->first();*/
-
+        $tableupdate = [];
+        if (!empty($request->valide)) {$tableupdate['valide'] = $request->valide;}
         DB::table('carte_agilis')
             ->where('id',$id)
-            ->increment('solde',$request->solde);
+            ->update($tableupdate);
         return response( 201);
     }
 }
