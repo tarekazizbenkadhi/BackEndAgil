@@ -55,9 +55,12 @@ Route::get('super_admin/{id}', 'SuperAdmin@get_super_admins_byid');
 Route::put('update_super_admin/{id}', 'SuperAdmin@update_super_admins');
 //url carte agilis
 Route::post('addCarte/{id}', 'carteController@addCarte');
-Route::get('getCarte', 'carteController@get_carte');
-Route::get('getCarteClient/{id}', 'carteController@get_carte_client_byid');
-Route::get('getCarteEntrprise/{id}', 'carteController@get_carte_entreprise_byid');
+Route::get('get_carte_client', 'carteController@get_carte_client');
+Route::get('get_carte_entreprise', 'carteController@get_carte_entreprise');
+Route::get('get_carte_client_byid/{id}', 'carteController@get_carte_client_byid');
+Route::get('get_carte_entreprise_byid/{id}', 'carteController@get_carte_entreprise_byid');
+Route::get('get_carte_client_by_cin/{cin}', 'carteController@get_carte_client_by_cin');
+Route::get('get_carte_entreprise_by_matFiscal/{mat_fiscal}', 'carteController@get_carte_entreprise_by_matFiscal');
 
 Route::put('updateCarte/{id}', 'carteController@update_carte');
 
