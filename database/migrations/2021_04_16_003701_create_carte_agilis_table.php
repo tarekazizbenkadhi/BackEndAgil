@@ -21,7 +21,7 @@ class CreateCarteAgilisTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->integer('nb_carte_ss');
             $table->integer('nb_carte_g');
-            $table->boolean('valide');
+            $table->boolean('etat');
             $table->integer('nb_carte_g50');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

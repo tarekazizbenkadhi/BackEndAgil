@@ -14,7 +14,7 @@ class CBContoller extends Controller
         $carte = new CarteBancaire([
             'numero' => '2006'.rand().'2403',
             'solde' => '1215',
-            'date_exp' => date('Y-m-d',strtotime(date("Y-m-d", time()) . " + 730 day")),
+            'date_exp' => date('Y-m',strtotime(date("Y-m", time()) . " + 24 month")),
             'code' => rand(pow(10, 8-1), pow(10, 8)-1),
             'crypto'=>'210',
         ]);
@@ -38,5 +38,12 @@ class CBContoller extends Controller
 
 
         return response()->json($carte, 200);
+    }
+    public function debiter_montant(Request $request)
+    {
+        DB::table('carte_bancaires')
+            ->where('numero',$request->numero)
+        ->decrement('solde',$request->montant);
+        return response(201);
     }
 }
