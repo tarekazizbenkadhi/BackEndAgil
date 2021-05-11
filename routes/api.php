@@ -83,5 +83,5 @@ Route::post('addCommandeBonValeur/{id}', 'CommandeBonValeurController@addCommand
 Route::get('get_commande_client_byid/{id}', 'CommandeBonValeurController@get_commande_client_byid');
 Route::get('get_commande_entreprise_byid/{id}', 'CommandeBonValeurController@get_commande_entreprise_byid');
 Route::put('update_commande/{id}', 'CommandeBonValeurController@update_commande');
-
+//38
 
