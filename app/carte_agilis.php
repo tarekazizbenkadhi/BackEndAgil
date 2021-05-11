@@ -14,7 +14,7 @@ class carte_agilis extends Model
         'nb_carte_ss',
         'nb_carte_g',
         'nb_carte_g50',
-        'valide',
+        'etat',
 
 
     ];
