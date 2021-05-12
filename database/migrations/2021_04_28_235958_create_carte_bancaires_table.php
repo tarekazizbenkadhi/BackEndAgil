@@ -17,7 +17,7 @@ class CreateCarteBancairesTable extends Migration
             $table->id();
             $table->bigInteger('numero')->unique();
             $table->integer('crypto');
-            $table->date('date_exp');
+            $table->string('date_exp');
             $table->double('solde');
             $table->string('code');
             $table->timestamps();

@@ -57,6 +57,8 @@ Route::put('update_super_admin/{id}', 'SuperAdmin@update_super_admins');
 Route::post('addCarte/{id}', 'carteController@addCarte');
 Route::get('get_carte_client', 'carteController@get_carte_client');
 Route::get('get_carte_entreprise', 'carteController@get_carte_entreprise');
+Route::get('get_valide_carte_client', 'carteController@get_valide_carte_client');
+Route::get('get_valide_carte_entreprise', 'carteController@get_valide_carte_entreprise');
 Route::get('get_carte_client_byid/{id}', 'carteController@get_carte_client_byid');
 Route::get('get_carte_entreprise_byid/{id}', 'carteController@get_carte_entreprise_byid');
 Route::get('get_carte_client_by_cin/{cin}', 'carteController@get_carte_client_by_cin');
