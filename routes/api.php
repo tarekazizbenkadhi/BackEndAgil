@@ -35,12 +35,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('client', 'ClientController@get_client');
 Route::get('client/{id}', 'ClientController@get_client_byid');
 Route::put('update_client/{id}', 'ClientController@update_client');
-Route::get('valideClient','ClientController@get_valide_client');
+Route::get('valideClient', 'ClientController@get_valide_client');
 //url entreprises
 Route::get('entreprise', 'EntrepriseController@get_entreprise');
 Route::get('entreprise/{id}', 'EntrepriseController@get_entreprise_byid');
 Route::put('update_entreprise/{id}', 'EntrepriseController@update_entreprise');
-Route::get('valideEntreprise','EntrepriseController@get_valide_entreprise');
+Route::get('valideEntreprise', 'EntrepriseController@get_valide_entreprise');
 //url admin commercial
 Route::get('admin_commercial', 'AdminComercial@get_admin_commercials');
 Route::get('admin_commercial/{id}', 'AdminComercial@get_admin_commercials_byid');
@@ -63,20 +63,19 @@ Route::get('get_carte_client_byid/{id}', 'carteController@get_carte_client_byid'
 Route::get('get_carte_entreprise_byid/{id}', 'carteController@get_carte_entreprise_byid');
 Route::get('get_carte_client_by_cin/{cin}', 'carteController@get_carte_client_by_cin');
 Route::get('get_carte_entreprise_by_matFiscal/{mat_fiscal}', 'carteController@get_carte_entreprise_by_matFiscal');
-
 Route::put('updateCarte/{id}', 'carteController@update_carte');
 
 // emails
-Route::get('email','MailController@sendEmail');
+Route::get('email', 'MailController@sendEmail');
 // stock
-Route::post('stock','StockController@createStock');
-Route::put('addStock','StockController@AddStock');
-Route::put('subStock','StockController@SubStock');
-Route::get('getStock','StockController@getStock');
+Route::post('stock', 'StockController@createStock');
+Route::put('addStock', 'StockController@AddStock');
+Route::put('subStock', 'StockController@SubStock');
+Route::get('getStock', 'StockController@getStock');
 
 // CB
-Route::post('createCard','CBContoller@addCarte');
-Route::get('getCBbynum/{numero}','CBContoller@getCBbynum');
+Route::post('createCard', 'CBContoller@addCarte');
+Route::get('getCBbynum/{numero}', 'CBContoller@getCBbynum');
 //vehicule
 Route::post('addVehicule/{id}', 'vehiculeController@addVehicule');
 Route::get('getVehiculeClient/{id}', 'vehiculeController@get_vehicule_client_byid');
@@ -85,5 +84,9 @@ Route::post('addCommandeBonValeur/{id}', 'CommandeBonValeurController@addCommand
 Route::get('get_commande_client_byid/{id}', 'CommandeBonValeurController@get_commande_client_byid');
 Route::get('get_commande_entreprise_byid/{id}', 'CommandeBonValeurController@get_commande_entreprise_byid');
 Route::put('update_commande/{id}', 'CommandeBonValeurController@update_commande');
+//38
 
-
+//Rendez vous carte agilis
+Route::post('addRV', 'Rendez_vousAgilisController@addRVAgilis');
+Route::get('getRV','Rendez_vousAgilisController@get_rv_agilis');
+Route::put('update_rv_agilis/{id}','Rendez_vousAgilisController@update_rv_agilis');
