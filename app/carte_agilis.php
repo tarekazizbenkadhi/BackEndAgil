@@ -23,4 +23,9 @@ class carte_agilis extends Model
         return $this->hasOne(User::class);
     }
 
+    public function rendezVous()
+    {
+        return $this->hasMany(rendez_vous::class);
+    }
+
 }
