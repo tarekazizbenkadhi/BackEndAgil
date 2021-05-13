@@ -73,6 +73,12 @@ class EntrepriseController extends Controller
         if (!empty($request->rib)) {
             $tableupdate['rib'] = $request->rib;
         }
+        if (!empty($request->matricule_fisc)) {
+            $tableupdate['matricule_fisc'] = $request->matricule_fisc;
+        }
+        if (!empty($request->budget)) {
+            $tableupdate['budget'] = $request->budget;
+        }
         if (!empty($request->prevision)) {
             $tableupdate['prevision'] = $request->prevision;
         }

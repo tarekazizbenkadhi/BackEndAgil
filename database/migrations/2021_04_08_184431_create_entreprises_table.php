@@ -25,6 +25,8 @@ class CreateEntreprisesTable extends Migration
             $table->string('rib');
             $table->string('num_registre_commerce');
             $table->string('mat_fiscal');
+            $table->string('matricule_fisc');
+            $table->string('budget');
             $table->string('prevision');
             $table->boolean('valide');
             $table->bigInteger('user_id')->unsigned();

@@ -28,10 +28,6 @@ class CreateCommandeBonValeursTable extends Migration
             $table->string('etat');
             $table->string('reglemment');
             $table->double('montant');
-
-
-
-
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
