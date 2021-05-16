@@ -75,5 +75,9 @@ class User extends Authenticatable
         $this->hasMany(commandeBonValeur::class);
 
     }
+    public function rendezVous()
+    {
+        return $this->hasMany(rendez_vous::class);
+    }
 
 }
