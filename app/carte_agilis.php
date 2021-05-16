@@ -17,15 +17,13 @@ class carte_agilis extends Model
         'etat',
 
 
+
     ];
     public function user()
     {
         return $this->hasOne(User::class);
     }
 
-    public function rendezVous()
-    {
-        return $this->hasMany(rendez_vous::class);
-    }
+
 
 }

@@ -26,6 +26,7 @@ class carteController extends Controller
             'etat' => 0,
             'nb_carte_g50' =>$request->nb_carte_g50,
             'user_id'=>$id,
+
         ]);
 
 
