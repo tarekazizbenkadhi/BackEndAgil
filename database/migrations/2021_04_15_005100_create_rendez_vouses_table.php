@@ -18,6 +18,8 @@ class CreateRendezVousesTable extends Migration
             $table->dateTime('date_time_rv');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('carte_agilis_id')->unsigned();
+            $table->foreign('carte_agilis_id')->references('id')->on('carte_agilis');
             $table->timestamps();
         });
     }

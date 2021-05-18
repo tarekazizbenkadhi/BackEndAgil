@@ -89,4 +89,5 @@ Route::put('update_commande/{id}', 'CommandeBonValeurController@update_commande'
 //Rendez vous carte agilis
 Route::post('addRV/{id}', 'Rendez_vousAgilisController@addRVAgilis');
 Route::get('getRV','Rendez_vousAgilisController@get_rv_agilis');
+Route::get('getRVById/{id}','Rendez_vousAgilisController@get_rv_agilis_by_id');
 Route::put('update_rv_agilis/{id}','Rendez_vousAgilisController@update_rv_agilis');
