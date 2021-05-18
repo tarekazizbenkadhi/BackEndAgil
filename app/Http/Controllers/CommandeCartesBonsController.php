@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\cmd_bons_litre;
+use Illuminate\Http\Request;
+
+class CommandeCartesBonsController extends Controller
+{
+    public function addCommandeBonValeur(Request $request , $id)
+    {
+
+        $BonsLitres = new cmd_bons_litre([
+            'qte_litres' => $request->qte_litres,
+            'nb_cartes_bons' => $request->nb_cartes_bons,
+            'montant_litres' => $request->montant_litres,
+            'etat_litres' => $request->etat_litres,
+            'reglement_litres' => $request->reglement_litres,
+            'user_id' => $id,
+        ]);
+        $BonsLitres->save();
+        return response()->json([
+            'message' => 'Commande de bons litres created!'
+        ], 201);
+    }
+
+
+    public function get_cmd_litres_entreprise_byid($id)
+    {
+
+        $cmd = DB::table('cmd_bons_litres as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->where('c.user_id', $id)
+            ->select ('users.*','entreprise.*','c.*')
+            ->first();
+        if (is_null($cmd)) {
+
+            return response()->json(['data' => 'commande not found'], 404);
+        }
+
+
+        return response()->json($cmd, 200);
+    }
+
+    public function update_commande_litres(Request $request, $id)
+    {
+
+        $cmdupdate = [];
+        if (!empty($request->valide)) {$cmdupdate['etat_litres'] = $request->etat_litres;}
+        DB::table('cmd_bons_litres')
+            ->where('id',$id)
+            ->update($cmdupdate);
+        return response( 201);
+    }
+}
