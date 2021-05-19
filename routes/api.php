@@ -76,6 +76,7 @@ Route::get('getStock', 'StockController@getStock');
 // CB
 Route::post('createCard', 'CBContoller@addCarte');
 Route::get('getCBbynum/{numero}', 'CBContoller@getCBbynum');
+Route::put('subSolde/{numero}', 'CBContoller@debiter_montant');
 //vehicule
 Route::post('addVehicule/{id}', 'vehiculeController@addVehicule');
 Route::get('getVehiculeClient/{id}', 'vehiculeController@get_vehicule_client_byid');
@@ -87,14 +88,21 @@ Route::put('update_commande/{id}', 'CommandeBonValeurController@update_commande'
 //38
 
 //Rendez vous carte agilis
-Route::post('addRV', 'Rendez_vousAgilisController@addRVAgilis');
+Route::post('addRV/{id}', 'Rendez_vousAgilisController@addRVAgilis');
 Route::get('getRV','Rendez_vousAgilisController@get_rv_agilis');
+Route::get('getRVById/{id}','Rendez_vousAgilisController@get_rv_agilis_by_id');
 Route::put('update_rv_agilis/{id}','Rendez_vousAgilisController@update_rv_agilis');
 
 //Commande carte bons
-Route::post('add_cmd_litres/{id}','CommandeCartesBonsController@addCommandeBonValeur');
+Route::post('add_cmd_litres/{id}','CommandeCartesBonsController@addCommandeCarteBon');
 Route::get('get_cmd_litres_byid/{id}','CommandeCartesBonsController@get_cmd_litres_entreprise_byid');
 Route::put('update_cmd_litres','CommandeCartesBonsController@update_commande_litres');
+//Rendez vous bons de valeur
+Route::get('getRV_cmd_bv_ById/{id}','rendez_vous_vbController@get_rv_cmd_bv_by_id');
+Route::put('update_rv_cmd_bv/{id}','rendez_vous_vbController@update_rv_cmd_bv');
+//Rendez vous cartes bons
+Route::get('get_rv_cmd_cb_by_id/{id}','rendez_vous_cbController@get_rv_cmd_cb_by_id');
+Route::put('update_rv_cmd_cb/{id}','rendez_vous_cbController@update_rv_cmd_cb');
 
 //supprimer User
 Route::delete('delete_client/{id}','ClientController@delete_client');

@@ -10,6 +10,6 @@ class MailController extends Controller
 {
     public function sendEmail()
     {
-        Mail::to('shiraz.besrour@gmail.com')->send(new ValidationEmail('shiraz'));
+        Mail::to('tarekazizbenkadhitabk@gmail.com')->send(new ValidationEmail('tarek'));
     }
 }

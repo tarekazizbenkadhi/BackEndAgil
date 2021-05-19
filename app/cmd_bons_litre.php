@@ -20,4 +20,8 @@ class cmd_bons_litre extends Model
     {
         return $this->hasOne(User::class);
     }
+    public function rendez_vous_cb()
+    {
+        return $this->hasMany(rendez_vous_cb::class);
+    }
 }

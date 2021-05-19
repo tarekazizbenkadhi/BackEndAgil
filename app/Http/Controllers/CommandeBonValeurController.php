@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\commandeBonValeur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +28,15 @@ class CommandeBonValeurController extends Controller
             'montant' =>$request->montant,
             'user_id'=>$id,
         ]);
+
         $Commande->save();
+
+        $Commande->rendez_vous_bv()->create([
+            'user_id' => $id,
+            'date_time_rv' => $request->date_time_rv,
+            'commande_bon_valeur_id' => $Commande->id,
+
+        ]);
         return response()->json([
             'message' => 'Commande created!'
         ], 201);
