@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Client;
 use Illuminate\Http\Request;
 use DB;
 
@@ -80,8 +81,13 @@ class ClientController extends Controller
         return response($client, 201);
     }
 
-    /* public function desactive_client(Request $request,$id)
-     {
 
-     }*/
+    public function delete_client($id)
+    {
+//        return Client::destroy($id);
+//        return response()->json(['message' => 'client not found'], 404);
+        $res=Client::where('user_id',$id)->delete();
+//    $client=Client::find($id);
+//    $client->delete();
+    }
 }

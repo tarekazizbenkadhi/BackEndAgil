@@ -162,8 +162,7 @@ class AuthController extends Controller
      * @return [string] token_type
      * @return [string] expires_at
      */
-    public
-    function login(Request $request)
+    public function login(Request $request)
     {
 
         $request->validate([
@@ -264,9 +263,16 @@ class AuthController extends Controller
      *
      * @return [json] user object
      */
-    public
-    function user(Request $request)
+
+    public function user(Request $request)
     {
         return response()->json($request->user()->with('client', 'entreprise', 'admin_commercial', 'admin_livraison', 'super_admin')->find(Auth::id()));
+    }
+
+    public function delete_user($id){
+
+        return User::destroy($id);
+        return response()->json(['message' => 'user not found'], 404);
+
     }
 }

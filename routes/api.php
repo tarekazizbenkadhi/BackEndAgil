@@ -103,3 +103,8 @@ Route::put('update_rv_cmd_bv/{id}','rendez_vous_vbController@update_rv_cmd_bv');
 //Rendez vous cartes bons
 Route::get('get_rv_cmd_cb_by_id/{id}','rendez_vous_cbController@get_rv_cmd_cb_by_id');
 Route::put('update_rv_cmd_cb/{id}','rendez_vous_cbController@update_rv_cmd_cb');
+
+//supprimer User
+Route::delete('delete_client/{id}','ClientController@delete_client');
+Route::delete('delete_user/{id}','AuthController@delete_user');
+Route::delete('delete_entreprise/{id}','EntrepriseController@delete_entreprise');
