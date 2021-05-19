@@ -113,8 +113,8 @@ class EntrepriseController extends Controller
 
     public function supprimer_entreprise($id)
     {
-        return Entreprise::destroy($id);
-        return response()->json(['message' => 'entreprise not found'], 404);
+        $res=Entreprise::where('user_id',$id)->delete();
+
     }
 
 }
