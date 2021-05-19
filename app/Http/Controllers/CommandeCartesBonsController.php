@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\cmd_bons_litre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommandeCartesBonsController extends Controller
 {
@@ -40,7 +41,24 @@ class CommandeCartesBonsController extends Controller
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
             ->where('c.user_id', $id)
             ->select ('users.*','entreprise.*','c.*')
-            ->first();
+            ->get();
+        if (is_null($cmd)) {
+
+            return response()->json(['data' => 'commande not found'], 404);
+        }
+
+
+        return response()->json($cmd, 200);
+    }
+
+    public function get_cmd_litres_entreprise_cb()
+    {
+
+        $cmd = DB::table('cmd_bons_litres as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->select ('users.*','entreprise.*','c.*')
+            ->get();
         if (is_null($cmd)) {
 
             return response()->json(['data' => 'commande not found'], 404);

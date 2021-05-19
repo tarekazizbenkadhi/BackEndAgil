@@ -6,6 +6,7 @@ use App\commandeBonValeur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
 class CommandeBonValeurController extends Controller
 {
     public function addCommandeBonValeur(Request $request , $id)
@@ -50,8 +51,9 @@ class CommandeBonValeurController extends Controller
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
             ->where('c.user_id', $id)
+            ->where('client.cin', '!=', 'null')
             ->select ('users.*','client.*','c.*')
-            ->first();
+            ->get();
         if (is_null($carte)) {
 
             return response()->json(['data' => 'commande not found'], 404);
@@ -60,29 +62,106 @@ class CommandeBonValeurController extends Controller
 
         return response()->json($carte, 200);
     }
+
+    public function get_commande_client_bv()
+    {
+
+        $bv = DB::table('commande_bon_valeurs as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->where('c.etat', '=', '0')
+            ->where('client.cin', '!=', 'null')
+            ->select ('users.*','client.*','c.*')
+            ->get();
+        if (is_null($bv)) {
+
+            return response()->json(['data' => 'commande not found'], 404);
+        }
+
+
+        return response()->json($bv, 200);
+    }
+    public function get_valid_commande_client_bv()
+    {
+
+        $bv = DB::table('commande_bon_valeurs as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->where('c.etat', '=', '1')
+            ->where('client.cin', '!=', 'null')
+            ->select ('users.*','client.*','c.*')
+            ->get();
+        if (is_null($bv)) {
+
+            return response()->json(['data' => 'commande not found'], 404);
+        }
+
+
+        return response()->json($bv, 200);
+    }
+
     public function get_commande_entreprise_byid($id)
     {
 
-        $carte = DB::table('commande_bon_valeurs as c')
+        $bv = DB::table('commande_bon_valeurs as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
             ->where('c.user_id', $id)
+            ->where('entreprise.raison_sociale', '!=', 'null')
             ->select ('users.*','entreprise.*','c.*')
-            ->first();
-        if (is_null($carte)) {
+            ->get();
+        if (is_null($bv)) {
 
             return response()->json(['data' => 'commande not found'], 404);
         }
 
 
-        return response()->json($carte, 200);
+        return response()->json($bv, 200);
     }
+
+    public function get_commande_entreprise_bv()
+    {
+
+        $bv = DB::table('commande_bon_valeurs as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->where('entreprise.raison_sociale', '!=', 'null')
+            ->where('c.etat', '=', '0')
+            ->select ('users.*','entreprise.*','c.*')
+            ->get();
+        if (is_null($bv)) {
+
+            return response()->json(['data' => 'commande not found'], 404);
+        }
+
+
+        return response()->json($bv, 200);
+    }
+    public function get_valid_commande_entreprise_bv()
+    {
+
+        $bv = DB::table('commande_bon_valeurs as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->where('entreprise.raison_sociale', '!=', 'null')
+            ->where('c.etat', '=', '1')
+            ->select ('users.*','entreprise.*','c.*')
+            ->get();
+        if (is_null($bv)) {
+
+            return response()->json(['data' => 'commande not found'], 404);
+        }
+
+
+        return response()->json($bv, 200);
+    }
+
     public function update_commande(Request $request, $id)
     {
         /*$carte = DB::table('carte_agilis')
             ->where('id',$id)->first();*/
         $tableupdate = [];
-        if (!empty($request->valide)) {$tableupdate['etat'] = $request->etat;}
+        if (!empty($request->etat)) {$tableupdate['etat'] = $request->etat;}
         DB::table('commande_bon_valeurs')
             ->where('id',$id)
             ->update($tableupdate);
