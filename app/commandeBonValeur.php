@@ -25,4 +25,8 @@ class commandeBonValeur extends Model
     {
         return $this->hasOne(User::class);
     }
+    public function rendez_vous_bv()
+    {
+        return $this->hasMany(rendez_vous_bv::class);
+    }
 }

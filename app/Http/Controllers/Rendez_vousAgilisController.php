@@ -8,28 +8,28 @@ use Illuminate\Support\Facades\DB;
 
 class Rendez_vousAgilisController extends Controller
 {
-    public function addRVAgilis(Request $request, $id)
-    {
-
-        $rv = DB::table('rendez_vouses as rv')
-            ->select('rv.*')->where('date_time_rv', $request->date_time_rv)->get();
-        if (count($rv) > 0) {
-
-              return response()->json([
-                'message' => 'rendez-vous exists!'
-            ], 201);
-
-        } else {
-            $rv = new rendez_vous([
-                'date_time_rv' => $request->date_time_rv,
-                'user_id' => $id,
-            ]);
-            $rv->save();
-            return response()->json([
-                'message' => 'rendez-vous created!'
-            ], 201);
-        }
-    }
+//    public function addRVAgilis(Request $request, $id)
+//    {
+//
+//        $rv = DB::table('rendez_vouses as rv')
+//            ->select('rv.*')->where('date_time_rv', $request->date_time_rv)->get();
+//        if (count($rv) > 0) {
+//
+//              return response()->json([
+//                'message' => 'rendez-vous exists!'
+//            ], 201);
+//
+//        } else {
+//            $rv = new rendez_vous([
+//                'date_time_rv' => $request->date_time_rv,
+//                'user_id' => $id,
+//            ]);
+//            $rv->save();
+//            return response()->json([
+//                'message' => 'rendez-vous created!'
+//            ], 201);
+//        }
+//    }
 
     public function get_rv_agilis()
     {
@@ -52,7 +52,7 @@ class Rendez_vousAgilisController extends Controller
 
         $oc = DB::table('rendez_vouses as rv')
             ->select('rv.*')->where('date_time_rv', $request->date_time_rv)->get();
-$rv=$request->all();
+        $rv=$request->all();
         if (count($oc) > 0) {
 
             return response()->json([

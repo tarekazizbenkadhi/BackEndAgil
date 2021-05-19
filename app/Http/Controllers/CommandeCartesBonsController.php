@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class CommandeCartesBonsController extends Controller
 {
-    public function addCommandeBonValeur(Request $request , $id)
+    public function addCommandeCarteBon(Request $request , $id)
     {
 
         $BonsLitres = new cmd_bons_litre([
@@ -19,6 +19,13 @@ class CommandeCartesBonsController extends Controller
             'user_id' => $id,
         ]);
         $BonsLitres->save();
+
+        $BonsLitres->rendez_vous_cb()->create([
+            'user_id' => $id,
+            'date_time_rv' => $request->date_time_rv,
+            'cmd_bons_litre_id' => $BonsLitres->id,
+
+        ]);
         return response()->json([
             'message' => 'Commande de bons litres created!'
         ], 201);
