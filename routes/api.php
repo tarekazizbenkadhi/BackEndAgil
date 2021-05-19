@@ -95,3 +95,8 @@ Route::put('update_rv_agilis/{id}','Rendez_vousAgilisController@update_rv_agilis
 Route::post('add_cmd_litres/{id}','CommandeCartesBonsController@addCommandeBonValeur');
 Route::get('get_cmd_litres_byid/{id}','CommandeCartesBonsController@get_cmd_litres_entreprise_byid');
 Route::put('update_cmd_litres','CommandeCartesBonsController@update_commande_litres');
+
+//supprimer User
+Route::delete('delete_client/{id}','ClientController@delete_client');
+Route::delete('delete_user/{id}','AuthController@delete_user');
+Route::delete('delete_entreprise/{id}','EntrepriseController@delete_entreprise');

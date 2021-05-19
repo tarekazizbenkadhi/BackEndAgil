@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entreprise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -108,6 +109,12 @@ class EntrepriseController extends Controller
 
         //**********************************
         return response($entreprise, 201);
+    }
+
+    public function supprimer_entreprise($id)
+    {
+        return Entreprise::destroy($id);
+        return response()->json(['message' => 'entreprise not found'], 404);
     }
 
 }
