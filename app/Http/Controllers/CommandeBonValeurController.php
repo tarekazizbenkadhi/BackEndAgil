@@ -82,7 +82,7 @@ class CommandeBonValeurController extends Controller
         /*$carte = DB::table('carte_agilis')
             ->where('id',$id)->first();*/
         $tableupdate = [];
-        if (!empty($request->valide)) {$tableupdate['etat'] = $request->etat;}
+        if (!empty($request->etat)) {$tableupdate['etat'] = $request->etat;}
         DB::table('commande_bon_valeurs')
             ->where('id',$id)
             ->update($tableupdate);
