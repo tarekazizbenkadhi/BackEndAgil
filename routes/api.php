@@ -98,7 +98,7 @@ Route::put('update_rv_agilis/{id}','Rendez_vousAgilisController@update_rv_agilis
 //Commande carte bons
 Route::post('add_cmd_litres/{id}','CommandeCartesBonsController@addCommandeCarteBon');
 Route::get('get_cmd_litres_byid/{id}','CommandeCartesBonsController@get_cmd_litres_entreprise_byid');
-Route::put('update_cmd_litres','CommandeCartesBonsController@update_commande_litres');
+Route::put('update_cmd_litres/{id}','CommandeCartesBonsController@update_commande_litres');
 Route::get('get_cmd_litres_cb','CommandeCartesBonsController@get_cmd_litres_entreprise_cb');
 
 
