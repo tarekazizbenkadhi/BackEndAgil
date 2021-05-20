@@ -58,12 +58,24 @@ class carteController extends Controller
         return response()->json($carte, 200);
     }
 
+
     public function get_valide_carte_client()
     {
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
             ->where('client.cin', '!=', 'null')
+            ->where('c.etat', '=', '1')
+            ->select('c.*', 'users.*', 'client.*')->get();
+        return response()->json($carte, 200);
+    }
+    public function get_valide_carte_client_by_cin($cin)
+    {
+        $carte = DB::table('carte_agilis as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->where('client.cin', '!=', 'null')
+            ->where('client.cin', $cin)
             ->where('c.etat', '=', '1')
             ->select('c.*', 'users.*', 'client.*')->get();
         return response()->json($carte, 200);
@@ -97,6 +109,17 @@ class carteController extends Controller
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
             ->where('entreprise.raison_sociale', '!=', 'null')
+            ->where('c.etat', '=', '1')
+            ->select('c.*', 'users.*', 'entreprise.*')->get();
+        return response()->json($carte, 200);
+    }
+    public function get_valide_carte_entreprise_by_matFiscal($mat_fiscal)
+    {
+        $carte = DB::table('carte_agilis as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->where('entreprise.raison_sociale', '!=', 'null')
+            ->where('entreprise.mat_fiscal', $mat_fiscal)
             ->where('c.etat', '=', '1')
             ->select('c.*', 'users.*', 'entreprise.*')->get();
         return response()->json($carte, 200);
