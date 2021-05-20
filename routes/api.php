@@ -85,8 +85,10 @@ Route::post('addCommandeBonValeur/{id}', 'CommandeBonValeurController@addCommand
 Route::get('get_commande_client_byid/{id}', 'CommandeBonValeurController@get_commande_client_byid');
 Route::get('get_commande_entreprise_byid/{id}', 'CommandeBonValeurController@get_commande_entreprise_byid');
 Route::put('update_commande/{id}', 'CommandeBonValeurController@update_commande');
-//38
-
+Route::get('get_commande_client_bv', 'CommandeBonValeurController@get_commande_client_bv');
+Route::get('get_commande_entreprise_bv', 'CommandeBonValeurController@get_commande_entreprise_bv');
+Route::get('get_valid_commande_client_bv', 'CommandeBonValeurController@get_valid_commande_client_bv');
+Route::get('get_valid_commande_entreprise_bv', 'CommandeBonValeurController@get_valid_commande_entreprise_bv');
 //Rendez vous carte agilis
 Route::post('addRV/{id}', 'Rendez_vousAgilisController@addRVAgilis');
 Route::get('getRV','Rendez_vousAgilisController@get_rv_agilis');
@@ -97,6 +99,9 @@ Route::put('update_rv_agilis/{id}','Rendez_vousAgilisController@update_rv_agilis
 Route::post('add_cmd_litres/{id}','CommandeCartesBonsController@addCommandeCarteBon');
 Route::get('get_cmd_litres_byid/{id}','CommandeCartesBonsController@get_cmd_litres_entreprise_byid');
 Route::put('update_cmd_litres','CommandeCartesBonsController@update_commande_litres');
+Route::get('get_cmd_litres_cb','CommandeCartesBonsController@get_cmd_litres_entreprise_cb');
+
+
 //Rendez vous bons de valeur
 Route::get('getRV_cmd_bv_ById/{id}','rendez_vous_vbController@get_rv_cmd_bv_by_id');
 Route::put('update_rv_cmd_bv/{id}','rendez_vous_vbController@update_rv_cmd_bv');
