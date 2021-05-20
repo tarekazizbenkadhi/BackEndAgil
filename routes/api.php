@@ -63,6 +63,9 @@ Route::get('get_carte_client_byid/{id}', 'carteController@get_carte_client_byid'
 Route::get('get_carte_entreprise_byid/{id}', 'carteController@get_carte_entreprise_byid');
 Route::get('get_carte_client_by_cin/{cin}', 'carteController@get_carte_client_by_cin');
 Route::get('get_carte_entreprise_by_matFiscal/{mat_fiscal}', 'carteController@get_carte_entreprise_by_matFiscal');
+Route::get('get_carte_client_valid_by_cin/{cin}', 'carteController@get_valide_carte_client_by_cin');
+Route::get('get_carte_entreprise_valid_by_matFiscal/{mat_fiscal}', 'carteController@get_valide_carte_entreprise_by_matFiscal');
+
 Route::put('updateCarte/{id}', 'carteController@update_carte');
 
 // emails
