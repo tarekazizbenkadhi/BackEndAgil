@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ValidationEmail;
+use App\Mail\livraison_mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class MailController extends Controller
+class MailLivraison extends Controller
 {
+    //
     public function sendEmail(Request $request)
     {
-        Mail::to($request->mail)->send(new ValidationEmail($request->nom_prenom));
+        Mail::to($request->mail)->send(new livraison_mail($request->nom_prenom));
     }
 }

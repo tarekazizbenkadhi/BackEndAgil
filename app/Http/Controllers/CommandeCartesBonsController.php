@@ -39,8 +39,10 @@ class CommandeCartesBonsController extends Controller
         $cmd = DB::table('cmd_bons_litres as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_cbs','rendez_vous_cbs.user_id', '=', 'users.id')
+
             ->where('c.user_id', $id)
-            ->select ('users.*','entreprise.*','c.*')
+            ->select ('users.*','entreprise.*','c.*','rendez_vous_cbs.*')
             ->get();
         if (is_null($cmd)) {
 
@@ -57,7 +59,8 @@ class CommandeCartesBonsController extends Controller
         $cmd = DB::table('cmd_bons_litres as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
-            ->select ('users.*','entreprise.*','c.*')
+            ->leftJoin('rendez_vous_cbs','rendez_vous_cbs.user_id', '=', 'users.id')
+            ->select ('users.*','entreprise.*','c.*','rendez_vous_cbs.*')
             ->get();
         if (is_null($cmd)) {
 

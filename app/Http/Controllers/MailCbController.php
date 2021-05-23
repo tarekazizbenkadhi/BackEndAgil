@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ValidationEmail;
+use App\Mail\validation_cmd_cb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class MailController extends Controller
+class MailCbController extends Controller
 {
     public function sendEmail(Request $request)
     {
-        Mail::to($request->mail)->send(new ValidationEmail($request->nom_prenom));
+        Mail::to($request->mail)->send(new validation_cmd_cb($request->nom_prenom));
     }
 }

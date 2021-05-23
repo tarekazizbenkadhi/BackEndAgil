@@ -69,7 +69,11 @@ Route::get('get_carte_entreprise_valid_by_matFiscal/{mat_fiscal}', 'carteControl
 Route::put('updateCarte/{id}', 'carteController@update_carte');
 
 // emails
-Route::get('email', 'MailController@sendEmail');
+Route::post('email', 'MailController@sendEmail');
+Route::post('email_cb', 'MailCbController@sendEmail');
+Route::post('email_livraison', 'MailLivraison@sendEmail');
+
+
 // stock
 Route::post('stock', 'StockController@createStock');
 Route::put('addStock', 'StockController@AddStock');

@@ -50,9 +50,11 @@ class CommandeBonValeurController extends Controller
         $carte = DB::table('commande_bon_valeurs as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_bvs','rendez_vous_bvs.user_id', '=', 'users.id')
+
             ->where('c.user_id', $id)
             ->where('client.cin', '!=', 'null')
-            ->select ('users.*','client.*','c.*')
+            ->select ('users.*','client.*','c.*','rendez_vous_bvs.*')
             ->get();
         if (is_null($carte)) {
 
@@ -62,16 +64,16 @@ class CommandeBonValeurController extends Controller
 
         return response()->json($carte, 200);
     }
-
     public function get_commande_client_bv()
     {
 
         $bv = DB::table('commande_bon_valeurs as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_bvs','rendez_vous_bvs.user_id', '=', 'users.id')
             ->where('c.etat', '=', '0')
             ->where('client.cin', '!=', 'null')
-            ->select ('users.*','client.*','c.*')
+            ->select ('users.*','client.*','c.*','rendez_vous_bvs.*')
             ->get();
         if (is_null($bv)) {
 
@@ -87,9 +89,10 @@ class CommandeBonValeurController extends Controller
         $bv = DB::table('commande_bon_valeurs as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_bvs','rendez_vous_bvs.user_id', '=', 'users.id')
             ->where('c.etat', '=', '1')
             ->where('client.cin', '!=', 'null')
-            ->select ('users.*','client.*','c.*')
+            ->select ('users.*','client.*','c.*','rendez_vous_bvs.*')
             ->get();
         if (is_null($bv)) {
 
@@ -99,16 +102,16 @@ class CommandeBonValeurController extends Controller
 
         return response()->json($bv, 200);
     }
-
     public function get_commande_entreprise_byid($id)
     {
 
         $bv = DB::table('commande_bon_valeurs as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_bvs','rendez_vous_bvs.user_id', '=', 'users.id')
             ->where('c.user_id', $id)
             ->where('entreprise.raison_sociale', '!=', 'null')
-            ->select ('users.*','entreprise.*','c.*')
+            ->select ('users.*','entreprise.*','c.*','rendez_vous_bvs.*')
             ->get();
         if (is_null($bv)) {
 
@@ -118,16 +121,15 @@ class CommandeBonValeurController extends Controller
 
         return response()->json($bv, 200);
     }
-
     public function get_commande_entreprise_bv()
     {
-
         $bv = DB::table('commande_bon_valeurs as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_bvs','rendez_vous_bvs.user_id', '=', 'users.id')
             ->where('entreprise.raison_sociale', '!=', 'null')
             ->where('c.etat', '=', '0')
-            ->select ('users.*','entreprise.*','c.*')
+            ->select ('users.*','entreprise.*','c.*','rendez_vous_bvs.*')
             ->get();
         if (is_null($bv)) {
 
@@ -143,9 +145,10 @@ class CommandeBonValeurController extends Controller
         $bv = DB::table('commande_bon_valeurs as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_bvs','rendez_vous_bvs.user_id', '=', 'users.id')
             ->where('entreprise.raison_sociale', '!=', 'null')
             ->where('c.etat', '=', '1')
-            ->select ('users.*','entreprise.*','c.*')
+            ->select ('users.*','entreprise.*','c.*','rendez_vous_bvs.*')
             ->get();
         if (is_null($bv)) {
 
