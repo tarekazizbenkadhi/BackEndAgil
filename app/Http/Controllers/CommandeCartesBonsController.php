@@ -75,7 +75,11 @@ class CommandeCartesBonsController extends Controller
     {
 
         $cmdupdate = [];
-        if (!empty($request->valide)) {$cmdupdate['etat_litres'] = $request->etat_litres;}
+        if (!empty($request->etat_litres)) {$cmdupdate['etat_litres'] = $request->etat_litres;}
+        if (!empty($request->qte_litres)) {$cmdupdate['qte_litres'] = $request->qte_litres;}
+        if (!empty($request->nb_cartes_bons)) {$cmdupdate['nb_cartes_bons'] = $request->nb_cartes_bons;}
+        if (!empty($request->montant_litres)) {$cmdupdate['montant_litres'] = $request->montant_litres;}
+        if (!empty($request->reglement_litres)) {$cmdupdate['reglement_litres'] = $request->reglement_litres;}
         DB::table('cmd_bons_litres')
             ->where('id',$id)
             ->update($cmdupdate);
