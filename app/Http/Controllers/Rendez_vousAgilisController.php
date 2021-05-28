@@ -57,7 +57,7 @@ class Rendez_vousAgilisController extends Controller
 
             return response()->json([
                 'message' => 'rendez-vous exists!'
-            ], 201);
+            ], 401);
 
         } else {
             $tableupdate = [];

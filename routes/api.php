@@ -69,7 +69,12 @@ Route::get('get_carte_entreprise_valid_by_matFiscal/{mat_fiscal}', 'carteControl
 Route::put('updateCarte/{id}', 'carteController@update_carte');
 
 // emails
-Route::get('email', 'MailController@sendEmail');
+Route::post('email', 'MailController@sendEmail');
+Route::post('email_cb', 'MailCbController@sendEmail');
+Route::post('email_livraison', 'MailLivraison@sendEmail');
+Route::post('MailSupController', 'MailLivraison@sendEmail');
+
+
 // stock
 Route::post('stock', 'StockController@createStock');
 Route::put('addStock', 'StockController@AddStock');
@@ -116,6 +121,11 @@ Route::put('update_rv_cmd_cb/{id}','rendez_vous_cbController@update_rv_cmd_cb');
 Route::delete('delete_client/{id}','ClientController@delete_client');
 Route::delete('delete_user/{id}','AuthController@delete_user');
 Route::delete('delete_entreprise/{id}','EntrepriseController@delete_entreprise');
+// reclamation
+Route::post('addReclamation/{id}', 'reclamationController@addReclamation');
+Route::get('getReclamtion','reclamationController@get_reclamation');
+
+
 
 
 //tarif essence

@@ -7,20 +7,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ValidationEmail extends Mailable
+class livraison_mail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $validation_mail_data;
 
-
     /**
+     * Create a new message instance.
      *
      * @return void
      */
     public function __construct($data)
     {
+        //
         $this->validation_mail_data = $data;
+
     }
 
     /**
@@ -32,7 +34,7 @@ class ValidationEmail extends Mailable
     {
         return $this
             ->from('agil.app2021@gmail.com', 'Agil')
-            ->subject('validation Compte Agil')
-            ->view('Mail.validation-email');
+            ->subject('Commande Carburant')
+            ->view('Mail.Livraison_mail');
     }
 }

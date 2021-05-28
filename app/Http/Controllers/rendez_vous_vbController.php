@@ -26,7 +26,7 @@ class rendez_vous_vbController extends Controller
 
             return response()->json([
                 'message' => 'rendez-vous exists!'
-            ], 201);
+            ], 401);
 
         } else {
             $tableupdate = [];

@@ -46,27 +46,26 @@ class carteController extends Controller
 
 
     }
-
     public function get_carte_client()
     {
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('client.cin', '!=', 'null')
             ->where('c.etat', '=', 'false')
-            ->select('c.*', 'users.*', 'client.*')->get();
+            ->select('c.*', 'users.*', 'client.*','rendez_vouses.*')->get();
         return response()->json($carte, 200);
     }
-
-
     public function get_valide_carte_client()
     {
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('client.cin', '!=', 'null')
             ->where('c.etat', '=', '1')
-            ->select('c.*', 'users.*', 'client.*')->get();
+            ->select('c.*', 'users.*', 'client.*','rendez_vouses.*')->get();
         return response()->json($carte, 200);
     }
     public function get_valide_carte_client_by_cin($cin)
@@ -74,43 +73,47 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
+
             ->where('client.cin', '!=', 'null')
             ->where('client.cin', $cin)
             ->where('c.etat', '=', '1')
-            ->select('c.*', 'users.*', 'client.*')->get();
+            ->select('c.*', 'users.*', 'client.*','rendez_vouses.*')->get();
         return response()->json($carte, 200);
     }
-
     public function get_carte_client_by_cin($cin)
     {
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
+
             ->where('c.etat', '=', 'false')
             ->where('client.cin', $cin)
-            ->select('c.*', 'users.*', 'client.*')->get();
+            ->select('c.*', 'users.*', 'client.*','rendez_vouses.*')->get();
         return response()->json($carte, 200);
     }
-
     public function get_carte_entreprise()
     {
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('entreprise.raison_sociale', '!=', 'null')
             ->where('c.etat', '=', 'false')
-            ->select('c.*', 'users.*', 'entreprise.*')->get();
+            ->select('c.*', 'users.*', 'entreprise.*','rendez_vouses.*')->get();
         return response()->json($carte, 200);
     }
-
     public function get_valide_carte_entreprise()
     {
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
+
             ->where('entreprise.raison_sociale', '!=', 'null')
             ->where('c.etat', '=', '1')
-            ->select('c.*', 'users.*', 'entreprise.*')->get();
+            ->select('c.*', 'users.*', 'entreprise.*','rendez_vouses.*')->get();
         return response()->json($carte, 200);
     }
     public function get_valide_carte_entreprise_by_matFiscal($mat_fiscal)
@@ -118,32 +121,34 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
+
             ->where('entreprise.raison_sociale', '!=', 'null')
             ->where('entreprise.mat_fiscal', $mat_fiscal)
             ->where('c.etat', '=', '1')
-            ->select('c.*', 'users.*', 'entreprise.*')->get();
+            ->select('c.*', 'users.*', 'entreprise.*','rendez_vouses.*')->get();
         return response()->json($carte, 200);
     }
-
     public function get_carte_entreprise_by_matFiscal($mat_fiscal)
     {
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('c.etat', '=', 'false')
             ->where('entreprise.mat_fiscal', $mat_fiscal)
-            ->select('c.*', 'users.*', 'entreprise.*')->get();
+            ->select('c.*', 'users.*', 'entreprise.*','rendez_vouses.*')->get();
         return response()->json($carte, 200);
     }
-
     public function get_carte_client_byid($id)
     {
 
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('c.user_id', $id)
-            ->select('c.*', 'users.*', 'client.*')
+            ->select('c.*', 'users.*', 'client.*','rendez_vouses.*')
             ->get();
         if (is_null($carte)) {
 
@@ -153,15 +158,15 @@ class carteController extends Controller
 
         return response()->json($carte, 200);
     }
-
     public function get_carte_entreprise_byid($id)
     {
 
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('c.user_id', $id)
-            ->select('c.*', 'users.*', 'entreprise.*')
+            ->select('c.*', 'users.*', 'entreprise.*','rendez_vouses.*')
             ->get();
         if (is_null($carte)) {
 
@@ -171,7 +176,6 @@ class carteController extends Controller
 
         return response()->json($carte, 200);
     }
-
     public function update_carte(Request $request, $id)
     {
         /*$carte = DB::table('carte_agilis')
