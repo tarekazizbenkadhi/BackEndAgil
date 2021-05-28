@@ -126,3 +126,9 @@ Route::post('addReclamation/{id}', 'reclamationController@addReclamation');
 Route::get('getReclamtion','reclamationController@get_reclamation');
 
 
+
+
+//tarif essence
+Route::post('add_tarif','TarifEssenceController@add_tarif_essence');
+Route::get('get_tarif','TarifEssenceController@get_tarif_essence');
+Route::put('update_tarif/{id}','TarifEssenceController@update_tarif_essence');
