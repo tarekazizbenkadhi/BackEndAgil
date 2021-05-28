@@ -116,3 +116,9 @@ Route::put('update_rv_cmd_cb/{id}','rendez_vous_cbController@update_rv_cmd_cb');
 Route::delete('delete_client/{id}','ClientController@delete_client');
 Route::delete('delete_user/{id}','AuthController@delete_user');
 Route::delete('delete_entreprise/{id}','EntrepriseController@delete_entreprise');
+
+
+//tarif essence
+Route::post('add_tarif','TarifEssenceController@add_tarif_essence');
+Route::get('get_tarif','TarifEssenceController@get_tarif_essence');
+Route::put('update_tarif/{id}','TarifEssenceController@update_tarif_essence');
