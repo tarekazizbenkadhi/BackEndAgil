@@ -37,18 +37,17 @@ class CommandeCartesBonsController extends Controller
     {
 
         $cmd = DB::table('cmd_bons_litres as c')
-            ->leftJoin('users', 'users.id', '=', 'c.user_id')
-            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vous_cbs','rendez_vous_cbs.user_id', '=', 'users.id')
-
+            ->Join('users', 'users.id', '=', 'c.user_id')
+            ->Join('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_cbs','rendez_vous_cbs.cmd_bons_litre_id', '=', 'c.id')
             ->where('c.user_id', $id)
-            ->select ('users.*','entreprise.*','c.*','rendez_vous_cbs.*')
+            ->select ('users.*','entreprise.*','c.*','rendez_vous_cbs.date_time_rv')
+            ->distinct()
             ->get();
         if (is_null($cmd)) {
 
             return response()->json(['data' => 'commande not found'], 404);
         }
-
 
         return response()->json($cmd, 200);
     }
@@ -57,10 +56,11 @@ class CommandeCartesBonsController extends Controller
     {
 
         $cmd = DB::table('cmd_bons_litres as c')
-            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vous_cbs','rendez_vous_cbs.user_id', '=', 'users.id')
-            ->select ('users.*','entreprise.*','c.*','rendez_vous_cbs.*')
+            ->leftJoin('rendez_vous_cbs','rendez_vous_cbs.cmd_bons_litre_id', '=', 'c.id')
+            ->select('c.*','users.*','entreprise.*','rendez_vous_cbs.*')
+            ->distinct()
             ->get();
         if (is_null($cmd)) {
 

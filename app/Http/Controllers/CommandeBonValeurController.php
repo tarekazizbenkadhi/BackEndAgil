@@ -50,8 +50,7 @@ class CommandeBonValeurController extends Controller
         $carte = DB::table('commande_bon_valeurs as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vous_bvs','rendez_vous_bvs.user_id', '=', 'users.id')
-
+            ->leftJoin('rendez_vous_bvs','rendez_vous_bvs.commande_bon_valeur_id', '=', 'c.id')
             ->where('c.user_id', $id)
             ->where('client.cin', '!=', 'null')
             ->select ('users.*','client.*','c.*','rendez_vous_bvs.*')
@@ -70,7 +69,7 @@ class CommandeBonValeurController extends Controller
         $bv = DB::table('commande_bon_valeurs as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vous_bvs','rendez_vous_bvs.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_bvs','rendez_vous_bvs.commande_bon_valeur_id', '=', 'c.id')
             ->where('c.etat', '=', '0')
             ->where('client.cin', '!=', 'null')
             ->select ('users.*','client.*','c.*','rendez_vous_bvs.*')

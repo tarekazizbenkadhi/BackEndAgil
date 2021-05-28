@@ -51,7 +51,7 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vouses','rendez_vouses.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('client.cin', '!=', 'null')
             ->where('c.etat', '=', 'false')
             ->select('c.*', 'users.*', 'client.*','rendez_vouses.*')->get();
@@ -62,7 +62,7 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vouses','rendez_vouses.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('client.cin', '!=', 'null')
             ->where('c.etat', '=', '1')
             ->select('c.*', 'users.*', 'client.*','rendez_vouses.*')->get();
@@ -73,7 +73,7 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vouses','rendez_vouses.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
 
             ->where('client.cin', '!=', 'null')
             ->where('client.cin', $cin)
@@ -86,7 +86,7 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vouses','rendez_vouses.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
 
             ->where('c.etat', '=', 'false')
             ->where('client.cin', $cin)
@@ -98,7 +98,7 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vouses','rendez_vouses.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('entreprise.raison_sociale', '!=', 'null')
             ->where('c.etat', '=', 'false')
             ->select('c.*', 'users.*', 'entreprise.*','rendez_vouses.*')->get();
@@ -109,7 +109,7 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vouses','rendez_vouses.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
 
             ->where('entreprise.raison_sociale', '!=', 'null')
             ->where('c.etat', '=', '1')
@@ -121,7 +121,7 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vouses','rendez_vouses.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
 
             ->where('entreprise.raison_sociale', '!=', 'null')
             ->where('entreprise.mat_fiscal', $mat_fiscal)
@@ -134,8 +134,7 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vouses','rendez_vouses.user_id', '=', 'users.id')
-
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('c.etat', '=', 'false')
             ->where('entreprise.mat_fiscal', $mat_fiscal)
             ->select('c.*', 'users.*', 'entreprise.*','rendez_vouses.*')->get();
@@ -147,8 +146,7 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('client', 'client.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vouses','rendez_vouses.user_id', '=', 'users.id')
-
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('c.user_id', $id)
             ->select('c.*', 'users.*', 'client.*','rendez_vouses.*')
             ->get();
@@ -166,8 +164,7 @@ class carteController extends Controller
         $carte = DB::table('carte_agilis as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vouses','rendez_vouses.user_id', '=', 'users.id')
-
+            ->leftJoin('rendez_vouses','rendez_vouses.carte_agilis_id', '=', 'c.id')
             ->where('c.user_id', $id)
             ->select('c.*', 'users.*', 'entreprise.*','rendez_vouses.*')
             ->get();

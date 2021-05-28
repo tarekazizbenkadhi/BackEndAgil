@@ -72,6 +72,7 @@ Route::put('updateCarte/{id}', 'carteController@update_carte');
 Route::post('email', 'MailController@sendEmail');
 Route::post('email_cb', 'MailCbController@sendEmail');
 Route::post('email_livraison', 'MailLivraison@sendEmail');
+Route::post('MailSupController', 'MailLivraison@sendEmail');
 
 
 // stock
@@ -120,3 +121,8 @@ Route::put('update_rv_cmd_cb/{id}','rendez_vous_cbController@update_rv_cmd_cb');
 Route::delete('delete_client/{id}','ClientController@delete_client');
 Route::delete('delete_user/{id}','AuthController@delete_user');
 Route::delete('delete_entreprise/{id}','EntrepriseController@delete_entreprise');
+// reclamation
+Route::post('addReclamation/{id}', 'reclamationController@addReclamation');
+Route::get('getReclamtion','reclamationController@get_reclamation');
+
+
