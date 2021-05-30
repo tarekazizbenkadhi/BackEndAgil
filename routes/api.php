@@ -108,6 +108,8 @@ Route::post('add_cmd_litres/{id}','CommandeCartesBonsController@addCommandeCarte
 Route::get('get_cmd_litres_byid/{id}','CommandeCartesBonsController@get_cmd_litres_entreprise_byid');
 Route::put('update_cmd_litres/{id}','CommandeCartesBonsController@update_commande_litres');
 Route::get('get_cmd_litres_cb','CommandeCartesBonsController@get_cmd_litres_entreprise_cb');
+Route::get('get_livree_cmd_litres_entreprise_cb', 'CommandeCartesBonsController@get_livree_cmd_litres_entreprise_cb');
+
 
 
 //Rendez vous bons de valeur

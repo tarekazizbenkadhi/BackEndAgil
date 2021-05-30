@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class CommandeCartesBonsController extends Controller
 {
-    public function addCommandeCarteBon(Request $request , $id)
+    public function addCommandeCarteBon(Request $request, $id)
     {
 
         $BonsLitres = new cmd_bons_litre([
@@ -39,9 +39,9 @@ class CommandeCartesBonsController extends Controller
         $cmd = DB::table('cmd_bons_litres as c')
             ->Join('users', 'users.id', '=', 'c.user_id')
             ->Join('entreprise', 'entreprise.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vous_cbs','rendez_vous_cbs.cmd_bons_litre_id', '=', 'c.id')
+            ->leftJoin('rendez_vous_cbs', 'rendez_vous_cbs.cmd_bons_litre_id', '=', 'c.id')
             ->where('c.user_id', $id)
-            ->select ('users.*','entreprise.*','c.*','rendez_vous_cbs.date_time_rv')
+            ->select('users.*', 'entreprise.*', 'c.*', 'rendez_vous_cbs.date_time_rv')
             ->distinct()
             ->get();
         if (is_null($cmd)) {
@@ -56,10 +56,30 @@ class CommandeCartesBonsController extends Controller
     {
 
         $cmd = DB::table('cmd_bons_litres as c')
-             ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
-            ->leftJoin('rendez_vous_cbs','rendez_vous_cbs.cmd_bons_litre_id', '=', 'c.id')
-            ->select('c.*','users.*','entreprise.*','rendez_vous_cbs.*')
+            ->leftJoin('rendez_vous_cbs', 'rendez_vous_cbs.cmd_bons_litre_id', '=', 'c.id')
+            ->where('c.etat_litres', '!=', '2')
+            ->select('c.*', 'users.*', 'entreprise.*', 'rendez_vous_cbs.*')
+            ->distinct()
+            ->get();
+        if (is_null($cmd)) {
+
+            return response()->json(['data' => 'commande not found'], 404);
+        }
+
+
+        return response()->json($cmd, 200);
+    }
+    public function get_livree_cmd_litres_entreprise_cb()
+    {
+
+        $cmd = DB::table('cmd_bons_litres as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_cbs', 'rendez_vous_cbs.cmd_bons_litre_id', '=', 'c.id')
+            ->where('c.etat_litres', '=', '2')
+            ->select('c.*', 'users.*', 'entreprise.*', 'rendez_vous_cbs.*')
             ->distinct()
             ->get();
         if (is_null($cmd)) {
@@ -75,14 +95,24 @@ class CommandeCartesBonsController extends Controller
     {
 
         $cmdupdate = [];
-        if (!empty($request->etat_litres)) {$cmdupdate['etat_litres'] = $request->etat_litres;}
-        if (!empty($request->qte_litres)) {$cmdupdate['qte_litres'] = $request->qte_litres;}
-        if (!empty($request->nb_cartes_bons)) {$cmdupdate['nb_cartes_bons'] = $request->nb_cartes_bons;}
-        if (!empty($request->montant_litres)) {$cmdupdate['montant_litres'] = $request->montant_litres;}
-        if (!empty($request->reglement_litres)) {$cmdupdate['reglement_litres'] = $request->reglement_litres;}
+        if (!empty($request->etat_litres)) {
+            $cmdupdate['etat_litres'] = $request->etat_litres;
+        }
+        if (!empty($request->qte_litres)) {
+            $cmdupdate['qte_litres'] = $request->qte_litres;
+        }
+        if (!empty($request->nb_cartes_bons)) {
+            $cmdupdate['nb_cartes_bons'] = $request->nb_cartes_bons;
+        }
+        if (!empty($request->montant_litres)) {
+            $cmdupdate['montant_litres'] = $request->montant_litres;
+        }
+        if (!empty($request->reglement_litres)) {
+            $cmdupdate['reglement_litres'] = $request->reglement_litres;
+        }
         DB::table('cmd_bons_litres')
-            ->where('id',$id)
+            ->where('id', $id)
             ->update($cmdupdate);
-        return response( 201);
+        return response(201);
     }
 }
