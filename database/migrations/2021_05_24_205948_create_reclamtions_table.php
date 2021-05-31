@@ -16,6 +16,7 @@ class CreateReclamtionsTable extends Migration
         Schema::create('reclamtions', function (Blueprint $table) {
             $table->id();
             $table->string('text_reclamation');
+            $table->string('objet');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
