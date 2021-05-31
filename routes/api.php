@@ -134,3 +134,6 @@ Route::get('getReclamtion','reclamationController@get_reclamation');
 Route::post('add_tarif','TarifEssenceController@add_tarif_essence');
 Route::get('get_tarif','TarifEssenceController@get_tarif_essence');
 Route::put('update_tarif/{id}','TarifEssenceController@update_tarif_essence');
+// gerant
+Route::get('get_gerant','gerantController@get_gerant');
+Route::get('get_gerant_byid/{id}','gerantController@get_gerant_byid');
