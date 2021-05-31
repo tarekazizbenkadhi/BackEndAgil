@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReclamtionsTable extends Migration
+class CreateGerantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,16 @@ class CreateReclamtionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reclamtions', function (Blueprint $table) {
+        Schema::create('gerants', function (Blueprint $table) {
             $table->id();
-            $table->string('text_reclamation');
-            $table->string('objet');
+            $table->string('prenom');
+            $table->string('nom');
+            $table->string('poste');
+            $table->string('adresse_station');
+            $table->boolean('valide');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -30,6 +34,6 @@ class CreateReclamtionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reclamtions');
+        Schema::dropIfExists('gerants');
     }
 }

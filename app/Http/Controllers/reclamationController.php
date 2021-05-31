@@ -15,6 +15,7 @@ class reclamationController extends Controller
 
         $reclamation = new reclamtion([
             'text_reclamation' => $request->text_reclamation,
+            'objet' => $request->objet,
             'user_id'=>$id,
         ]);
 

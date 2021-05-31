@@ -8,6 +8,7 @@ class reclamtion extends Model
 {
     protected $fillable = [
         'text_reclamation',
+        'objet',
         'user_id',
     ];
     public function user()
