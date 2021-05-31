@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 use Hash;
 
 
-
 class AuthController extends Controller
 {
     /**
@@ -53,6 +52,7 @@ class AuthController extends Controller
             'poste' => 'nullable|string',
             'type' => 'required|string',
             'tel' => 'required|string',
+            'adresse_station'=>'required|string',
             'valide' => 'nullable',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'
@@ -116,14 +116,14 @@ class AuthController extends Controller
                 'num_registre_commerce' => $request->num_registre_commerce,
             ]);
         } elseif ($request->type === 'admin_commercial') {
-           $request->valide = $request->valide != '1';
+            $request->valide = $request->valide != '1';
 
             $user->admin_commercial()->create([
                 'user_id' => $request->user(),
                 'prenom' => $request->prenom,
                 'nom' => $request->nom,
                 'poste' => $request->poste,
-                'valide'=> $request->valide,
+                'valide' => $request->valide,
 
             ]);
         } elseif ($request->type === 'admin_livraison') {
@@ -134,7 +134,18 @@ class AuthController extends Controller
                 'prenom' => $request->prenom,
                 'nom' => $request->nom,
                 'poste' => $request->poste,
-                'valide'=> $request->valide,
+                'valide' => $request->valide,
+            ]);
+        } elseif ($request->type === 'gerant') {
+            $request->valide = $request->valide != '1';
+
+            $user->gerant()->create([
+                'user_id' => $request->user(),
+                'prenom' => $request->prenom,
+                'nom' => $request->nom,
+                'adresse_station' => $request->adresse_station,
+                'poste' => $request->poste,
+                'valide' => $request->valide,
             ]);
         } else {
             $request->valide = $request->valide != '1';
@@ -143,7 +154,7 @@ class AuthController extends Controller
                 'prenom' => $request->prenom,
                 'nom' => $request->nom,
                 'poste' => $request->poste,
-                'valide'=> $request->valide,
+                'valide' => $request->valide,
 
             ]);
         }
@@ -162,7 +173,8 @@ class AuthController extends Controller
      * @return [string] token_type
      * @return [string] expires_at
      */
-    public function login(Request $request)
+    public
+    function login(Request $request)
     {
 
         $request->validate([
@@ -187,7 +199,7 @@ class AuthController extends Controller
             ->where('users.email', $request->email)
             ->first();
         $liv = DB::table('users')
-        ->leftJoin('admin_livraison', 'admin_livraison.user_id', '=', 'users.id')
+            ->leftJoin('admin_livraison', 'admin_livraison.user_id', '=', 'users.id')
             ->select('admin_livraison.valide')
             ->where('users.email', $request->email)
             ->first();
@@ -196,38 +208,43 @@ class AuthController extends Controller
             ->select('admin_commercial.valide')
             ->where('users.email', $request->email)
             ->first();
-          //  ->select('client.valide','super_admin.valide')
+        //  ->select('client.valide','super_admin.valide')
 
 
-  //dd($client);
+        //dd($client);
 
-        if (!Auth::attempt($credentials))
-        {
+        if (!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);}
-        if ( $super->valide === 0){
+            ], 401);
+        }
+        if ($super->valide === 0) {
             return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);}
-       //dd( gettype( $com->valide );
-       if ( $com->valide === 0){
+            ], 401);
+        }
+        //dd( gettype( $com->valide );
+        if ($com->valide === 0) {
             return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);}
-       // dd($com->valide);
-        if ($liv->valide === 0){
+            ], 401);
+        }
+        // dd($com->valide);
+        if ($liv->valide === 0) {
             return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);}
-        if ($client->valide === 0){
+            ], 401);
+        }
+        if ($client->valide === 0) {
             return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);}
-        if ( $entreprise->valide === 0){
+            ], 401);
+        }
+        if ($entreprise->valide === 0) {
             return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);}
+            ], 401);
+        }
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
@@ -264,12 +281,15 @@ class AuthController extends Controller
      * @return [json] user object
      */
 
-    public function user(Request $request)
+    public
+    function user(Request $request)
     {
         return response()->json($request->user()->with('client', 'entreprise', 'admin_commercial', 'admin_livraison', 'super_admin')->find(Auth::id()));
     }
 
-    public function delete_user($id){
+    public
+    function delete_user($id)
+    {
 
         return User::destroy($id);
         return response()->json(['message' => 'user not found'], 404);

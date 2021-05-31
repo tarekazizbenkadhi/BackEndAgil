@@ -53,6 +53,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(AdminLivraison::class);
     }
+    public function gerant()
+    {
+        return $this->hasOne(gerant::class);
+    }
 
     public function admin_commercial()
     {
