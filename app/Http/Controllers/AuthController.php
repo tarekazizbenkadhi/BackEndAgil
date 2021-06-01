@@ -52,7 +52,7 @@ class AuthController extends Controller
             'poste' => 'nullable|string',
             'type' => 'required|string',
             'tel' => 'required|string',
-            'adresse_station'=>'required|string',
+            'adresse_station'=>'nullable|string',
             'valide' => 'nullable',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'

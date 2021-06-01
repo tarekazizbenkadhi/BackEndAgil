@@ -27,6 +27,7 @@ class CommandeCartesBonsController extends Controller
             'cmd_bons_litre_id' => $BonsLitres->id,
 
         ]);
+
         return response()->json([
             'message' => 'Commande de bons litres created!'
         ], 201);

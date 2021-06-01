@@ -137,3 +137,7 @@ Route::put('update_tarif/{id}','TarifEssenceController@update_tarif_essence');
 // gerant
 Route::get('get_gerant','gerantController@get_gerant');
 Route::get('get_gerant_byid/{id}','gerantController@get_gerant_byid');
+// bons litre
+Route::post('add_bonsLitres/{id}','CarteBonsController@addCommandeCarteBon');
+Route::get('get_bonsLitres/{id}','CarteBonsController@get_bon_litres_entreprise_byid');
+Route::put('update_bonsLitres/{id}','CarteBonsController@update_bonsLitres');

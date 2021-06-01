@@ -24,4 +24,8 @@ class cmd_bons_litre extends Model
     {
         return $this->hasMany(rendez_vous_cb::class);
     }
+    public function CateBons()
+    {
+        return $this->hasMany(bons_litre::class);
+    }
 }
