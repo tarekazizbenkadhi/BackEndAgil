@@ -72,9 +72,9 @@ class CommandeCartesBonsController extends Controller
 
         return response()->json($cmd, 200);
     }
+
     public function get_livree_cmd_litres_entreprise_cb()
     {
-
         $cmd = DB::table('cmd_bons_litres as c')
             ->leftJoin('users', 'users.id', '=', 'c.user_id')
             ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
@@ -87,7 +87,6 @@ class CommandeCartesBonsController extends Controller
 
             return response()->json(['data' => 'commande not found'], 404);
         }
-
 
         return response()->json($cmd, 200);
     }
