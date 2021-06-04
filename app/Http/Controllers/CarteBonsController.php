@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class CarteBonsController extends Controller
 {
-    public function addCommandeCarteBon(Request $request, $id)
+    public function addCarteBon(Request $request, $id)
     {
 
         $BonsLitres = new bons_litre([
@@ -22,12 +22,15 @@ class CarteBonsController extends Controller
             'message' => 'bons litres created!'
         ], 201);
     }
-    public function get_bon_litres_entreprise_byid($id)
+    public function get_bon_litres_entreprise_byid($id,$id_cmd)
     {
 
         $bon = DB::table('bons_litres as c')
             ->join('cmd_bons_litres','cmd_bons_litres.id','=','c.cmd_bons_litre_id')
             ->where('cmd_bons_litres.user_id', $id)
+            ->where('cmd_bons_litres.id', $id_cmd)
+
+
             ->select( 'c.*')
             ->get();
         if (is_null($bon)) {
