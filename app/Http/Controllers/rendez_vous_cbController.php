@@ -23,7 +23,6 @@ class rendez_vous_cbController extends Controller
             ->select('rv.*')->where('date_time_rv', $request->date_time_rv)->get();
         $rv = $request->all();
         if (count($oc) > 0) {
-
             return response()->json([
                 'message' => 'rendez-vous exists!'
             ], 401);
