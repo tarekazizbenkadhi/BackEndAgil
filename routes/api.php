@@ -65,22 +65,19 @@ Route::get('get_carte_client_by_cin/{cin}', 'carteController@get_carte_client_by
 Route::get('get_carte_entreprise_by_matFiscal/{mat_fiscal}', 'carteController@get_carte_entreprise_by_matFiscal');
 Route::get('get_carte_client_valid_by_cin/{cin}', 'carteController@get_valide_carte_client_by_cin');
 Route::get('get_carte_entreprise_valid_by_matFiscal/{mat_fiscal}', 'carteController@get_valide_carte_entreprise_by_matFiscal');
-
+Route::get('get_carte_entreprise_by_date/{date_rv}', 'carteController@get_carte_entreprise_by_date');
+Route::get('get_carte_client_by_date/{date_rv}', 'carteController@get_carte_client_by_date');
 Route::put('updateCarte/{id}', 'carteController@update_carte');
-
 // emails
 Route::post('email', 'MailController@sendEmail');
 Route::post('email_cb', 'MailCbController@sendEmail');
 Route::post('email_livraison', 'MailLivraison@sendEmail');
 Route::post('MailSupController', 'MailLivraison@sendEmail');
-
-
 // stock
 Route::post('stock', 'StockController@createStock');
 Route::put('addStock', 'StockController@AddStock');
 Route::put('subStock', 'StockController@SubStock');
 Route::get('getStock', 'StockController@getStock');
-
 // CB
 Route::post('createCard', 'CBContoller@addCarte');
 Route::get('getCBbynum/{numero}', 'CBContoller@getCBbynum');
@@ -94,31 +91,32 @@ Route::get('get_commande_client_byid/{id}', 'CommandeBonValeurController@get_com
 Route::get('get_commande_entreprise_byid/{id}', 'CommandeBonValeurController@get_commande_entreprise_byid');
 Route::put('update_commande/{id}', 'CommandeBonValeurController@update_commande');
 Route::get('get_commande_client_bv', 'CommandeBonValeurController@get_commande_client_bv');
+Route::get('get_commande_entreprise_bymat/{mat}', 'CommandeBonValeurController@get_commande_entreprise_bv_byMat');
+Route::get('get_commande_bv_client_bycin/{cin}', 'CommandeBonValeurController@get_commande_client_bv_byCin');
 Route::get('get_commande_entreprise_bv', 'CommandeBonValeurController@get_commande_entreprise_bv');
 Route::get('get_valid_commande_client_bv', 'CommandeBonValeurController@get_valid_commande_client_bv');
 Route::get('get_valid_commande_entreprise_bv', 'CommandeBonValeurController@get_valid_commande_entreprise_bv');
+Route::get('get_commande_entreprise_bydate/{date_rv}', 'CommandeBonValeurController@get_commande_entreprise_bv_bydate');
+Route::get('get_commande_bv_client_bydate/{date_rv}', 'CommandeBonValeurController@get_commande_client_bv_bydate');
 //Rendez vous carte agilis
 Route::post('addRV/{id}', 'Rendez_vousAgilisController@addRVAgilis');
 Route::get('getRV','Rendez_vousAgilisController@get_rv_agilis');
 Route::get('getRVById/{id}','Rendez_vousAgilisController@get_rv_agilis_by_id');
 Route::put('update_rv_agilis/{id}','Rendez_vousAgilisController@update_rv_agilis');
-
 //Commande carte bons
 Route::post('add_cmd_litres/{id}','CommandeCartesBonsController@addCommandeCarteBon');
 Route::get('get_cmd_litres_byid/{id}','CommandeCartesBonsController@get_cmd_litres_entreprise_byid');
 Route::put('update_cmd_litres/{id}','CommandeCartesBonsController@update_commande_litres');
+Route::get('get_cmd_litres_bymat/{mat}','CommandeCartesBonsController@get_cmd_litres_entreprise_cb_byMat');
 Route::get('get_cmd_litres_cb','CommandeCartesBonsController@get_cmd_litres_entreprise_cb');
 Route::get('get_livree_cmd_litres_entreprise_cb', 'CommandeCartesBonsController@get_livree_cmd_litres_entreprise_cb');
-
-
-
+Route::get('get_cmd_litres_bydate/{date_rv}','CommandeCartesBonsController@get_cmd_litres_entreprise_cb_bydate');
 //Rendez vous bons de valeur
 Route::get('getRV_cmd_bv_ById/{id}','rendez_vous_vbController@get_rv_cmd_bv_by_id');
 Route::put('update_rv_cmd_bv/{id}','rendez_vous_vbController@update_rv_cmd_bv');
 //Rendez vous cartes bons
 Route::get('get_rv_cmd_cb_by_id/{id}','rendez_vous_cbController@get_rv_cmd_cb_by_id');
 Route::put('update_rv_cmd_cb/{id}','rendez_vous_cbController@update_rv_cmd_cb');
-
 //supprimer User
 Route::delete('delete_client/{id}','ClientController@delete_client');
 Route::delete('delete_user/{id}','AuthController@delete_user');

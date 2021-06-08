@@ -72,6 +72,46 @@ class CommandeCartesBonsController extends Controller
 
         return response()->json($cmd, 200);
     }
+    public function get_cmd_litres_entreprise_cb_byMat($mat)
+    {
+
+        $cmd = DB::table('cmd_bons_litres as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_cbs', 'rendez_vous_cbs.cmd_bons_litre_id', '=', 'c.id')
+            ->where('c.etat_litres', '!=', '2')
+            ->where('entreprise.matricule_fisc', $mat)
+            ->select('c.*', 'users.*', 'entreprise.*', 'rendez_vous_cbs.*')
+            ->distinct()
+            ->get();
+        if (is_null($cmd)) {
+
+            return response()->json(['data' => 'commande not found'], 404);
+        }
+
+
+        return response()->json($cmd, 200);
+    }
+    public function get_cmd_litres_entreprise_cb_bydate($date_rv)
+    {
+
+        $cmd = DB::table('cmd_bons_litres as c')
+            ->leftJoin('users', 'users.id', '=', 'c.user_id')
+            ->leftJoin('entreprise', 'entreprise.user_id', '=', 'users.id')
+            ->leftJoin('rendez_vous_cbs', 'rendez_vous_cbs.cmd_bons_litre_id', '=', 'c.id')
+            ->where('c.etat_litres', '!=', '2')
+            ->where('entreprise.matricule_fisc', $date_rv)
+            ->select('c.*', 'users.*', 'entreprise.*', 'rendez_vous_cbs.*')
+            ->distinct()
+            ->get();
+        if (is_null($cmd)) {
+
+            return response()->json(['data' => 'commande not found'], 404);
+        }
+
+
+        return response()->json($cmd, 200);
+    }
 
     public function get_livree_cmd_litres_entreprise_cb()
     {
